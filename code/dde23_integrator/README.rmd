@@ -1,0 +1,32 @@
+Purpose
+-------
+This code implements the dde23 integration scheme for a number of conductance-based DCM for ERP models.
+
+
+Installation and Usage
+----------------------
+
+	1. Start MATLAB
+
+	2. Add SPM12 -> EEG toolboxes (e.g. type *spm eeg* in command window) to the MATLAB path
+
+	3. Replace *y{c} = spm_int_L(Q, M, U)* with: *y{c} = dde23_int(Q, M, U)* in spm_gen_erp (line 84).     
+
+	4. Add the model you want to run to spm_dcm_x_neural.
+
+	   For three population DCMs (nmda):
+
+		Replace *x  = spm_x_nmda(P)* with *x = dde23_x_nmda(P)* in spm_dcm_x_neural.m (line 129)
+		Replace *f  = 'spm_fx_nmda'* with *f = 'dde23_fx_nmda'* in spm_dcm_x_neural.m (line 134)
+
+	   For four population DCMs (cmm_nmda):
+
+ 		Replace *x  = spm_x_cmm_NMDA(P)* with *x = dde23_x_cmm_NMDA(P)* in spm_dcm_x_neural.m (line 151)
+		Replace *f  = 'spm_fx_cmm_NMDA'* with *f = 'dde23_fx_cmm_NMDA'* in spm_dcm_x_neural.m (line 152)
+
+
+Warning
+-------
+This code has not been tested for the MFM version of the conductance-based models.
+This code will not take into account non-linear observer functions g(x), specified in DCM.M.g.
+
