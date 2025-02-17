@@ -11,14 +11,14 @@ opt.matlab_version = version;
 
 %% Options
 opt.version          = 1;  % Set version (will be appended to results directory and dcm file)
-opt.run_headmodel    = 0;   % Run a headmodel (required once before running a dcm inversion)
+opt.run_headmodel    = 1;   % Run a headmodel (required once before running a dcm inversion)
 opt.run_dcm          = 1;   % Flag to run dcm inversion
-opt.plot_raw         = 0;   % Flag to plot raw data
+opt.plot_raw         = 1;   % Flag to plot raw data
 opt.plot_inversion   = 1;   % Flag to save the model inversion plot
-opt.plot_fit         = 0;   % Flag to plot the model fit
+opt.plot_fit         = 1;   % Flag to plot the model fit
 opt.run_bpa          = 0;   % Flag to load bayesian parameter averages and use them as starting values
 opt.use_ep           = 0;   % Flag to use posterior from grandmean inversion as priors
-
+opt.plot_params      = 1;   % Flag to plot posterior parameter estimates
 
 % Set file names and prefixes
 [opt.pdata, opt.data_fname, ext] = fileparts(data_file_name);
@@ -28,6 +28,9 @@ opt.presults = results_folder;
 % Condition names
 opt.conditions = {'40Hz'};
 
+% Plot posterior parameter estimates
+plt.param = {'G'}; 
+plt.visibility = 'off';       
 
 %% Setup paths and results folder
 fprintf('Results Folder: %s\n', opt.presults)
@@ -46,6 +49,7 @@ opt.pplots = fullfile(opt.presults,'plots');
 % Start log
 fname_log = fullfile(opt.pdcms,'dcm_assr_cmc_ei');
 diary(fname_log);   
+tic;
 
 % Start lot
 fprintf('\n================================ Fit DCM to 40Hz ASSR ================================\n');
@@ -188,6 +192,11 @@ if opt.run_dcm
     DCM.M.pC.G(4) = 0; 
     DCM.M.pC.G(5) = 0;
     
+    % Fix Tau and S to values selected by multistart
+    DCM.M.pE.T = [log(16/2) log(16/2) log(2/16) log(2/28)];
+    DCM.M.pE.S = 1;
+    
+    
     % Use bayesian parameter averages as starting values
     if opt.run_bpa
         load(opt.fbpa);
@@ -225,13 +234,25 @@ if opt.run_dcm
     
     % Plot model fit
     if opt.plot_fit
-        fh = plot_actual_vs_predicted_responses(DCM, opt.conditions, 'off');
+        fh = plot_actual_vs_predicted_csd(DCM, 40, opt.conditions, 'off');
         saveas(fh,fullfile(opt.pplots, 'model_fit.png'));
         saveas(fh,fullfile(opt.pplots, 'model_fit.fig'));
     end
     
 end
 
+%% Plot parameter estimates
+if opt.plot_params
+    psave = fullfile(opt.presults,'posterior_parameters');
+    [~,~] = mkdir(psave);
+    
+    for p = 1:numel(plt.param)
+        fh = plot_dcm_parameters(DCM, plt.param{p}, plt.visibility);
+        saveas(fh,fullfile(psave, [plt.param{p} '_posterior_plot.png']));
+        saveas(fh,fullfile(psave, [plt.param{p} '_posterior_plot.fig']));
+        clear fh
+    end
+end
 
 t_done = toc;
 fprintf('\n===\n\t Subject finished after %s (HH:MM:SS)!\n\n', datestr(datenum(0,0,0,0,0,t_done),'HH:MM:SS'));

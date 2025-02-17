@@ -5,8 +5,8 @@ overwrite_old_check = 1;
 
 presults = 'F:\dcm_ei\results\rest\multistart';
 presults = 'F:\dcm_ei\results\assr\multistart';
-presults = 'F:\dcm_ei\results\assr\multistart';
-%presults = 'F:\dcm_ei\results\rest\multistart'; 
+%presults = 'F:\dcm_ei\results\p300\multistart';
+presults = 'F:\dcm_ei\results\p50\multistart';
 
 pdcms = fullfile(presults,'dcms');
 perrorfiles = fullfile(presults,'errorfiles');
@@ -97,34 +97,34 @@ end
 
 
 
+% 
+% count_dcm_file_corrupt = 0;
+% 
+% for vbsv = all_vbsvs
+%     
+%     fname = dir(fullfile(presults,'dcms',sprintf('*dcm*vbsv%d.mat', vbsv)));
+%     if ~isempty(fname)
+%         try
+%             fprintf('Trying to load dcm file: %s\n', fullfile(fname.folder,fname.name));
+%             load(fullfile(fname.folder,fname.name))
+%         catch
+%             warning('Could not load file: %s\n', fullfile(fname.folder,fname.name));
+%             count_vbsv = count_vbsv+1;
+%             vbsvs_to_rerun(count_vbsv,1) = vbsv;
+%             count_dcm_file_corrupt = count_dcm_file_corrupt+1;
+%         end
+%     end
+% end
 
-count_dcm_file_corrupt = 0;
-
-for vbsv = all_vbsvs
-    
-    fname = dir(fullfile(presults,'dcms',sprintf('*dcm*vbsv%d.mat', vbsv)));
-    if ~isempty(fname)
-        try
-            fprintf('Trying to load dcm file: %s\n', fullfile(fname.folder,fname.name));
-            load(fullfile(fname.folder,fname.name))
-        catch
-            warning('Could not load file: %s\n', fullfile(fname.folder,fname.name));
-            count_vbsv = count_vbsv+1;
-            vbsvs_to_rerun(count_vbsv,1) = vbsv;
-            count_dcm_file_corrupt = count_dcm_file_corrupt+1;
-        end
-    end
-end
-
-vbsvs_to_rerun = unique(vbsvs_to_rerun);
+%vbsvs_to_rerun = unique(vbsvs_to_rerun);
 
 
 fprintf('\nCounted %d successful inversion.\n',numel(success_files))
 fprintf('Counted %d integration errors.\n',count_int_errors)
 fprintf('Counted %d path setup errors.\n',count_setup_errors)
 fprintf('Counted %d unknown errors.\n',count_unknown_errors)
-fprintf('Counted %d corrupted dcm files.\n',count_dcm_file_corrupt)
-fprintf('---------\nA total of %d out of %d inversions is accounted for.\n',numel(success_files)+count_unknown_errors+count_int_errors+count_setup_errors-count_dcm_file_corrupt,max(all_vbsvs))
+%fprintf('Counted %d corrupted dcm files.\n',count_dcm_file_corrupt)
+%fprintf('---------\nA total of %d out of %d inversions is accounted for.\n',numel(success_files)+count_unknown_errors+count_int_errors+count_setup_errors-count_dcm_file_corrupt,max(all_vbsvs))
 fprintf('---------\nA total of %d out of %d inversions is accounted for.\n',numel(success_files)+count_unknown_errors+count_int_errors+count_setup_errors,max(all_vbsvs))
 
 fprintf('%d models will be rerun.\n',numel(vbsvs_to_rerun))

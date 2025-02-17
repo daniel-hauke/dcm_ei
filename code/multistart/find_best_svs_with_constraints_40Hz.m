@@ -11,9 +11,9 @@ presults = {'F:\dcm_ei\results\assr\multistart_15-48Hz'};
 fnames = {'dcm_assr_cmc_ei_v1_vbsv%d.mat'};
 condition_labels = {'40Hz ASSR'};
 
-presults = {'F:\dcm_ei\results\rest\multistart'};
-fnames = {'dcm_assr_cmc_ei_v1_vbsv%d.mat'};
-condition_labels = {'eyes open'};
+% presults = {'F:\dcm_ei\results\rest\multistart'};
+% fnames = {'dcm_assr_cmc_ei_v1_vbsv%d.mat'};
+% condition_labels = {'eyes open'};
 
 % presults = {'F:\dcm_ei\results\p300\multistart_bsnip'};
 % fnames = {'bsnip_dcm_p300_grandmean_hc_cmc_ei_v1_vbsv%d.mat'};
@@ -24,16 +24,13 @@ condition_labels = {'eyes open'};
 % condition_labels = {'Std','Dev'};
 
 
-presults = {'F:\dcm_ei\results\p50\multistart'};
-fnames = {'dcm_p50_cmc_ei_v1_vbsv%d.mat'};
-condition_labels = {'S1','S2'};
 
 n_vsbv = 2501;
 
 %% Contraints
 range_ss = [1 60];
 range_sp = [1 200];
-range_ii = [1 2];
+range_ii = [1 200];
 range_dp = [1 200];
 
 
@@ -43,6 +40,7 @@ lower_bound = [range_ss(1) range_sp(1) range_ii(1) range_dp(1)];
 
 % Initialise arrays
 F = NaN(n_vsbv,numel(presults));
+R2_40Hz = NaN(n_vsbv,numel(presults));
 T = NaN(n_vsbv,4,numel(presults));
 T_prior = NaN(n_vsbv,4,numel(presults));
 files = cell(n_vsbv,numel(presults));
@@ -62,10 +60,21 @@ for r = 1:numel(presults)
             if all((T(v,:,r) < upper_bound) & ( T(v,:,r) > lower_bound))
                 F(v,r) = DCM.F;
                 files{v,r}= dcm_file;
+                
+                freq = 40;
+                tol_freq = 3;
+                idx_freq = find(DCM.M.Hz>(freq-tol_freq) & DCM.M.Hz<(freq+tol_freq));
+                MSE_freq = real(sum(sum(sum(DCM.Rc{1}(idx_freq,:,:).^2))));
+                SS_freq  = real(sum(sum(sum((DCM.Hc{1}(idx_freq,:,:)+DCM.Rc{1}(idx_freq,:,:)).^2))));
+                R2_40Hz(v,r) = 1-(MSE_freq/SS_freq);
             end
         end
     end
 end
+
+
+
+
 
 
 %% Keep only models that meet criteria in both data sets
@@ -80,7 +89,7 @@ T_prior = T_prior(keep,:,:);
 files = files(keep,:);
 vbsvs = vbsvs(keep);
 F = F(keep,:);
-
+R2_40Hz =R2_40Hz(keep,:);
 
 %% Compute best models
 [~, m] = maxk(sum(F,2),3);
@@ -91,6 +100,14 @@ T(m,:,:)
 vbsvs(m)
 %files{m,1}
 
+
+
+%% Compute models with highest variance explained in alpha range
+
+[~, m] = maxk(sum(R2_40Hz,2),3);
+T_prior(m,:,:)
+T(m,:,:)
+vbsvs(m)
 
 % [~, m1] = maxk(F(:,1),10);
 % [~, m2] = maxk(F(:,2),10);
@@ -117,9 +134,9 @@ for j = 1:numel(presults)
         
         % Plot responses
         if contains(fnames,'assr') || contains(fnames,'rest')
-            f = plot_actual_vs_predicted_csd(DCM,[],condition_labels,'off');
+            f = plot_actual_vs_predicted_csd(DCM,40,condition_labels,'off');
         else
-            f = plot_actual_vs_predicted_erp(DCM,condition_labels,'off');
+            f = plot_actual_vs_predicted_erp(DCM,40,condition_labels,'off');
         end
         title(sname, 'Interpreter', 'none');
         

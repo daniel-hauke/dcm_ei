@@ -10,7 +10,7 @@ opt.matlab_version = version;
 
 
 %% Options
-opt.version          = 1;  % Set version (will be appended to results directory and dcm file)
+opt.version          = 1;   % Set version (will be appended to results directory and dcm file)
 opt.run_headmodel    = 1;   % Run a headmodel (required once before running a dcm inversion)
 opt.run_dcm          = 1;   % Flag to run dcm inversion
 opt.plot_raw         = 1;   % Flag to plot raw data
@@ -19,7 +19,7 @@ opt.plot_fit         = 1;   % Flag to plot the model fit
 opt.plot_input       = 1;   % Flag to plot the fitted input (posterior)
 opt.run_bpa          = 0;   % Flag to load bayesian parameter averages and use them as starting values
 opt.use_ep           = 0;   % Flag to use posterior from grandmean inversion as priors
-
+opt.plot_params      = 1;   % Flag to plot posterior parameter estimates
 
 % Set file names and prefixes
 [opt.pdata, opt.data_fname, ext] = fileparts(data_file_name);
@@ -27,7 +27,11 @@ opt.dcm_prefix = 'dcm_p300_cmc_ei';  % prefix of dcm file (model and version wil
 opt.presults = results_folder;
 
 % Condition names
-opt.conditions = {'Std', 'Dev'};
+opt.conditions = {'Standard', 'Target'};
+
+% Plot posterior parameter estimates
+plt.param = {'B_g_ii','B_g_ee'}; 
+plt.visibility = 'off';       
 
 
 %% Setup paths and results folder
@@ -46,8 +50,6 @@ opt.pplots = fullfile(opt.presults,'plots');
 % Start log
 fname_log = fullfile(opt.pdcms,'dcm_p300_cmc_ei');
 diary(fname_log);   
-
-% Start lot
 fprintf('\n================================ Fit DCM to P300 ================================\n');
 
 % Write data file
@@ -204,6 +206,10 @@ if opt.run_dcm
     DCM.M.pC.G(3) = 0; 
     DCM.M.pC.G(4) = 0; 
     DCM.M.pC.G(5) = 0;
+          
+    % Fix Tau and S to values selected by multistart
+    DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
+    DCM.M.pE.S = -1;
     
     % Use bayesian parameter averages as starting values
     if opt.run_bpa
@@ -258,6 +264,21 @@ if opt.run_dcm
 end
 
 
+%% Plot parameter estimates
+if opt.plot_params
+    psave = fullfile(opt.presults,'posterior_parameters');
+    [~,~] = mkdir(psave);
+    
+    for p = 1:numel(plt.param)
+        fh = plot_dcm_parameters(DCM, plt.param{p}, plt.visibility);
+        saveas(fh,fullfile(psave, [plt.param{p} '_posterior_plot.png']));
+        saveas(fh,fullfile(psave, [plt.param{p} '_posterior_plot.fig']));
+        clear fh
+    end
+end
+
+
+%% Clean up
 t_done = toc;
 fprintf('\n===\n\t Subject finished after %s (HH:MM:SS)!\n\n', datestr(datenum(0,0,0,0,0,t_done),'HH:MM:SS'));
 

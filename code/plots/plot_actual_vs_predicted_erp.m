@@ -38,6 +38,15 @@ fh = figure('OuterPosition', outerpos, 'Visible', visibility);
 set(0,'DefaultAxesFontSize',10)
 
 
+%% compute model fit
+for c =  1:n_cond
+% Compute overall variance explained
+MSE(c) = sum(sum((DCM.R{c}*U).^2)); 
+SS(c)  = sum(sum((((DCM.H{c} + DCM.R{c})*U).^2)));
+R2(c) = 1-(MSE(c)/SS(c));
+end
+
+
 %% Plot observed response
 for c = 1:n_cond
     ax{c} = subplot(2,n_cond,c);
@@ -53,6 +62,11 @@ for c = 1:n_cond
     plot(t,DCM.H{c}*U);
     title(condition_labels{c})
     xlim([min(t) max(t)]);
+    if c == 1
+        TextLocation(sprintf('R^2=%d%%, R^2_{(total)}=%d%%',round(R2(c)*100),round(mean(R2)*100)),'Location','NorthWest');
+    else
+        TextLocation(sprintf('R^2=%d%%',round(R2(c)*100)),'Location','NorthWest');
+    end
 end
 
 

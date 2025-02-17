@@ -1,4 +1,4 @@
-function fit_mmn_dcm(data_file_name, results_folder)
+function fit_p50_dcm(data_file_name, results_folder)
 
 
 
@@ -10,7 +10,7 @@ opt.matlab_version = version;
 
 
 %% Options
-opt.version          = 1;  % Set version (will be appended to results directory and dcm file)
+opt.version          = 1;   % Set version (will be appended to results directory and dcm file)
 opt.run_headmodel    = 1;   % Run a headmodel (required once before running a dcm inversion)
 opt.run_dcm          = 1;   % Flag to run dcm inversion
 opt.plot_raw         = 1;   % Flag to plot raw data
@@ -23,11 +23,11 @@ opt.plot_params      = 1;   % Flag to plot posterior parameter estimates
 
 % Set file names and prefixes
 [opt.pdata, opt.data_fname, ext] = fileparts(data_file_name);
-opt.dcm_prefix = 'dcm_mmn_cmc_ei';  % prefix of dcm file (model and version will be appended)
+opt.dcm_prefix = 'dcm_p50_cmc_ei';  % prefix of dcm file (model and version will be appended)
 opt.presults = results_folder;
 
 % Condition names
-opt.conditions = {'Standard', 'Deviant'};
+opt.conditions = {'Standard', 'Target'};
 
 % Plot posterior parameter estimates
 plt.param = {'B_g_ii','B_g_ee'}; 
@@ -46,14 +46,11 @@ opt.pplots = fullfile(opt.presults,'plots');
 [~,~] = mkdir(opt.pcpdata);
 [~,~] = mkdir(opt.pplots);
 
-
 %% Get subject ID
 % Start log
-fname_log = fullfile(opt.pdcms,'dcm_mmn_cmc_ei');
+fname_log = fullfile(opt.pdcms,'dcm_p300_cmc_ei');
 diary(fname_log);   
-
-% Start lot
-fprintf('\n================================ Fit DCM to MMN ================================\n');
+fprintf('\n================================ Fit DCM to P50 ================================\n');
 
 % Write data file
 dfile = fullfile(opt.pdata, [opt.data_fname ext]);
@@ -103,7 +100,6 @@ if opt.plot_raw
     saveas(fh,fullfile(opt.pplots, 'raw_data_plot.fig'));
 end
 
-
 %% DCM
 if opt.run_dcm
     
@@ -118,28 +114,30 @@ if opt.run_dcm
     % Set data file name
     DCM.xY.Dfile = dfile_new;
     
-   % DCM options
-    DCM.options.analysis = 'ERP';       % analyze evoked responses
-    DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
-    DCM.options.trials   = [1 4];       % index of ERPs within ERP/ERF file
-    DCM.options.Tdcm(1)  = -100;           % start of peri-stimulus time to be modelled
-    DCM.options.Tdcm(2)  = 400;         % end of peri-stimulus time to be modelled
-    DCM.options.Nmodes   = 8;           % nr of modes for data selection
-    DCM.options.h        = 1;           % nr of DCT components
-    DCM.options.D        = 2;           % downsampling (downsample by factor of 2 to get to 125Hz sampling rate)
-    DCM.options.han      = 1;           % Hanning window
-    DCM.options.onset    = 68;         % onset mean of input
-    DCM.options.dur      = 16;          % sd of onset
-    DCM.M.Nmax           = 64;         % default: 64, just to have a quick check
+% DCM options
+DCM.options.analysis = 'ERP';       % analyze evoked responses
+DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
+DCM.options.trials   = [1 2];       % index of ERPs within ERP/ERF file
+DCM.options.Tdcm(1)  = -100;        % start of peri-stimulus time to be modelled
+DCM.options.Tdcm(2)  = 350;         % end of peri-stimulus time to be modelled
+DCM.options.Nmodes   = 8;           % nr of modes for data selection
+DCM.options.h        = 1;           % nr of DCT components
+DCM.options.D        = 2;           % downsampling (downsample by factor of 2.5 to get to 100Hz sampling rate)
+DCM.options.han      = 1;           % Hanning window
+DCM.options.onset    = 50;          % onset mean of input
+DCM.options.dur      = 30;          % sd of onset
+DCM.M.nograph        = 1;           % Turn of graphics to run on cluster
+DCM.M.Nmax           = 64;          % default: 64
 
     % Sources
-    DCM.Sname = {'lA1', 'rA1', 'lSTG', 'rSTG', 'lIFG', 'rIFG'}; 
-    DCM.Lpos  = [-42 -22 7;
-                  46 -14 8;
-                 -61 -32 8;
-                  59 -25 8;
-                 -46  20 8;
-                  46  20 8]';
+DCM.Sname = {'lSTG', 'rSTG', 'lIns', 'rIns', 'lMFG', 'rMFG'};
+DCM.Lpos  = [-53 -20 13;
+              49 -10 10;
+             -36  23  3;
+              36  23  3;
+              -1 -20 67;
+              1 -20 67]';
+
     
      % Forward connections
     DCM.A{1} = zeros(numel(DCM.Sname));
@@ -177,30 +175,26 @@ if opt.run_dcm
     DCM.B{1}(4,6) = 1;
     
     % Local Gains
-    DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
+    %DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
     
     % Input
     DCM.C = [1; 1; 0; 0; 0; 0];
     
     % Between trial effects
-%     DCM.xU.name{1} = {['Main effect of condition: ' opt.conditions{2} ' > ' opt.conditions{1}]};
-    DCM.xU.name{1} = {'Main effect of condition: Dev > Std'};
-    DCM.xU.X(:,1)  = [-1; 1];
+    DCM.xU.name{1} = {'Main effect of condition: S1 > S2'};
+    DCM.xU.X(:,1)  = [1; -1];
     
     % Set DCM name
     dcm_name = sprintf('%s_v%d', opt.dcm_prefix, opt.version);
     DCM.name = fullfile(opt.pdcms, [dcm_name '.mat']);
     
     % Connections modulated by condition
-%     DCM.B{1} = DCM.A{1} + DCM.A{2} + eye(size(DCM.A{1}));
     DCM = get_priors_ei_cmc(DCM);
     
     % Fix input
     DCM.M.pC.R = [1/1024 1/1024];
     
-      % Fix global g_ei, g_ie, g_se parameters
-%     DCM.M.pC.B_g_ii = 0;  % Fix global g_ee parameters
-%     DCM.M.pC.B_g_ee = 0;  % Fix global g_ee parameters
+    % Fix global g_ei, g_ie, g_se parameters
     DCM.M.pC.B_g_ei = 0;
     DCM.M.pC.B_g_ie = 0;
     DCM.M.pC.B_g_se = 0; 
@@ -209,10 +203,10 @@ if opt.run_dcm
     DCM.M.pC.G(3) = 0; 
     DCM.M.pC.G(4) = 0; 
     DCM.M.pC.G(5) = 0;
-    
+          
     % Fix Tau and S to values selected by multistart
-    DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
-    DCM.M.pE.S = -1;
+    DCM.M.pE.T = [log(16/2) log(16/2) log(2/16) log(16/28)];
+    DCM.M.pE.S = -2;
     
     % Use bayesian parameter averages as starting values
     if opt.run_bpa
@@ -243,7 +237,7 @@ if opt.run_dcm
     
     save(DCM.name, 'DCM', spm_get_defaults('mat.format'));
 
-    % Save inversion plot
+      % Save inversion plot
     if opt.plot_inversion
         saveas(gcf,fullfile(opt.pplots, 'inversion.png'));
         saveas(gcf,fullfile(opt.pplots, 'inversion.fig'));
@@ -280,6 +274,8 @@ if opt.plot_params
     end
 end
 
+
+%% Clean up
 t_done = toc;
 fprintf('\n===\n\t Subject finished after %s (HH:MM:SS)!\n\n', datestr(datenum(0,0,0,0,0,t_done),'HH:MM:SS'));
 
