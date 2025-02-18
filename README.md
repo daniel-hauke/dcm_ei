@@ -1,9 +1,11 @@
 A new DCM to assess changes in E/I balance
 ===============
+This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
 
 Citing this code
 ---------------
 To cite this code please cite:
+tbd
 
 This code uses the spm12 and the TAPAS toolboxes. Please, also cite these ressources:
 SPM12
@@ -22,9 +24,6 @@ Members of the project
 - Contributions: Julia Rodriguez-Sanchez, Hope Oloye
 - Tester for Repdorucible Research: Tbd
 
-Project description
----------------
-This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
 
 Getting Started (General)
 ---------------
