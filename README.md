@@ -1,10 +1,9 @@
 A new DCM to assess changes in E/I balance
 ===============
 
-Citing this code:
+Citing this code
 ---------------
 To cite this code please cite:
-
 
 This code uses the spm12 and the TAPAS toolboxes. Please, also cite these ressources:
 SPM12
@@ -16,7 +15,6 @@ TAPAS:
 TAPAS euler integrator code:
 - Schöbi  et al (2021). **A fast and robust integrator of delay differential equations in DCM for electrophysiological data. *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2021.118567
 
-
 Members of the project
 ---------------
 - Supervision: Rick Adams, Daniel J. Hauke
@@ -24,11 +22,9 @@ Members of the project
 - Contributions: Julia Rodriguez-Sanchez, Hope Oloye
 - Tester for Repdorucible Research: Tbd
 
-
 Project description
 ---------------
 This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
-
 
 Getting Started (General)
 ---------------
@@ -36,7 +32,6 @@ Getting Started (General)
 ```
 git clone --recursive https://github.com/daniel-hauke/dcm_ei.git
 ```
-
 Important Information
 ---------------
 Running the `'setup_paths'` command for the first time will modify the spm12 and tapas code to make sure the new model runs. This can cause problems with running other analyses using the spm12 version stored with this project. The modified functions and backed-up original functions can be found in the code/toolboxes subfolder).
