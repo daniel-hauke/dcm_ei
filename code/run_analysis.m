@@ -28,6 +28,7 @@ end
 %% Fit models to data
 % P300
 data_file_name = fullfile(pdata,'p300','bsnip_p300_grandmean_hc.mat');
+data_file_name = fullfile(pdata,'p300','p300_grandmean_hc_f15.mat');
 results_folder = fullfile(presults,'p300');
 fit_p300_dcm(data_file_name,results_folder);
 

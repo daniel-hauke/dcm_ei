@@ -1,4 +1,4 @@
-function [f] = dde23_fx_cmm_NMDA(x,u,P,M,xtau,t)
+function [f] = dde23_fx_cmm_nmda(x,u,P,M,xtau,t)
 % state equations for canonical neural-mass and mean-field models
 % FORMAT [f,J,Q] = spm_fx_cmm(x,u,P,M)
 %
