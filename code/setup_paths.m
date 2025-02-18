@@ -50,14 +50,18 @@ else
 end
 
 if move_to_backup
-    changed_spm12_functions = dir(fullfile(project_path,'changed_spm12_functions','*.m'));
+    changed_spm12_functions = dir(fullfile(project_path,'toolboxes','changed_spm12_functions','*.m'));
     warning('SPM12 functions need to be changed. This can mess up other analyses you are doing with this SPM version.')
-    warning('The original functions are backed-up here: %s', backup_folder)
+    warning('The original functions are backed-up here: %s\n', backup_folder)
     warning('The following functions have been removed from the SPM12 folder:')
     for i = 1:numel(changed_spm12_functions)
         original_fun = fullfile(path_spm,'toolbox','dcm_meeg',changed_spm12_functions(i).name);
         movefile(original_fun, fullfile(backup_folder,changed_spm12_functions(i).name))
-        warning('%s',original_fun)
+        if i == numel(changed_spm12_functions)
+            warning('%s\n\n',original_fun)
+        else
+            warning('%s',original_fun)
+        end
     end
     
 end
@@ -83,14 +87,18 @@ else
 end
 
 if move_to_backup
-    changed_tapas_functions = dir(fullfile(project_path,'changed_tapas_functions','*.m'));
+    changed_tapas_functions = dir(fullfile(project_path,'toolboxes','changed_tapas_functions','*.m'));
     warning('TAPAS functions need to be changed. This can mess up other analyses you are doing with this TAPAS version.')
-    warning('The original functions are backed-up here: %s', backup_folder)
+    warning('The original functions are backed-up here: %s\n', backup_folder)
     warning('The following functions have been removed from the TAPAS folder:')
     for i = 1:numel(changed_tapas_functions)
         original_fun = fullfile(path_tapas,changed_tapas_functions(i).name);
         movefile(original_fun, fullfile(backup_folder,changed_tapas_functions(i).name))
-        warning('%s',original_fun)
+        if i == numel(changed_tapas_functions)
+            warning('%s\n\n',original_fun)
+        else
+            warning('%s',original_fun)
+        end
     end
     
 end
