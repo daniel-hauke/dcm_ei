@@ -24,10 +24,16 @@ Running the `'setup_paths'` command for the first time will modify the spm12 and
 
 Getting Started
 ---------------
-1.  Please, clone this repository **recursively(!)**. Otherwise, you will not have all the necessary toolboxes to run the code. You can do so using the following command:
+Using the github command window:
+Clone this repository **recursively(!)**. Otherwise, you will not have all the necessary toolboxes to run the code. You can do so using the following command:
 ```
 git clone --recursive https://github.com/daniel-hauke/dcm_ei.git
 ```
+
+Or if you are unfamiliar with the github command window, you can:
+1. Download the code by pressing on the 'code' button and select 'Download ZIP'.
+2. You will then need to manually download SPM12 from here: 
+
 
 Running The Code
 ---------------
