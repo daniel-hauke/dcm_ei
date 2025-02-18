@@ -1,0 +1,6 @@
+[submodule "code/toolboxes/tapas"]
+	path = code/toolboxes/tapas
+	url = https://github.com/translationalneuromodeling/tapas.git
+[submodule "code/toolboxes/spm12"]
+	path = code/toolboxes/spm12
+	url = https://github.com/spm/spm12.git

@@ -41,7 +41,7 @@ setup_spm;
 % Because it is not possible to exclude single functions from the search
 % path, we will move the SPM functions that were changed to a back-up
 % folder called 
-backup_folder = fullfile(project_path,'backup_spm12_functions');
+backup_folder = fullfile(project_path,'toolboxes','backup_spm12_functions');
 if ~exist(backup_folder)
     mkdir(backup_folder);
     move_to_backup = 1;
@@ -73,7 +73,7 @@ end
 % folder 
 path_tapas = fileparts(which('tapas_ceode_fx_cmc.m'));
 
-backup_folder = fullfile(project_path,'backup_tapas_functions');
+backup_folder = fullfile(project_path,'toolboxes','backup_tapas_functions');
 
 if ~exist(backup_folder)
     mkdir(backup_folder);
