@@ -32,7 +32,8 @@ git clone --recursive https://github.com/daniel-hauke/dcm_ei.git
 
 Or if you are unfamiliar with the github command window, you can:
 1. Download the code by pressing on the 'code' button and select 'Download ZIP'.
-2. You will then need to manually download SPM12 from here: 
+2. You will then need to manually download SPM12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/spm12/ and save it in the code/toolboxes folder
+3. Now download TAPAS from here: https://translationalneuromodeling.github.io/tapas/ and save it in the code/toolboxes folder
 
 
 Running The Code
