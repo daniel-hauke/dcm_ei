@@ -116,14 +116,14 @@ if opt.run_dcm
     
     % Set data file name
     DCM.xY.Dfile = dfile_new;
-    
+     DCM.options.Tdcm(1)  = 0;           % start of peri-stimulus time to be modelled
+    DCM.options.Tdcm(2)  = 50000;         % end of peri-stimulus time to be modelled
+    DCM.options.Fdcm     = [3 48];     % frequency band to be modelled (default = 4-48 Hz)
    % DCM options
     DCM.options.analysis = 'CSD';       % analyze cross-spectral densities
     DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
     DCM.options.trials   = 1;       % index of ERPs within ERP/ERF file
-    DCM.options.Tdcm(1)  = 0;           % start of peri-stimulus time to be modelled
-    DCM.options.Tdcm(2)  = 50000;         % end of peri-stimulus time to be modelled
-    DCM.options.Fdcm     = [3 48];     % frequency band to be modelled (default = 4-48 Hz)
+   
     DCM.options.Rft      = 7;           % wavelet number  
     DCM.options.Nmodes   = 8;           % nr of modes for data selection
     DCM.options.h        = 1;           % nr of DCT components
