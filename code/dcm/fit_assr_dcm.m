@@ -3,6 +3,11 @@ function fit_assr_dcm(data_file_name, results_folder)
 
 
 
+%% Defaults
+if nargin<3
+    opt = struct;
+end
+
 
 %% Description
 opt.desc = {''};

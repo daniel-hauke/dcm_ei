@@ -29,7 +29,7 @@ opt.dcm_prefix = 'dcm_rest_cmc_ei';  % prefix of dcm file (model and version wil
 opt.presults = results_folder;
 
 % Condition names
-opt.conditions = {'eyes open','eyes closed'};
+opt.conditions = {'eyes open'};
 
 % Plot posterior parameter estimates
 plt.param = {'G'}; 
@@ -125,7 +125,7 @@ if opt.run_dcm
    % DCM options
     DCM.options.analysis = 'CSD';       % analyze cross-spectral densities
     DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
-    DCM.options.trials   = [1 2];       % index of ERPs within ERP/ERF file
+    DCM.options.trials   = 1;       % index of ERPs within ERP/ERF file
     DCM.options.Rft      = 7;           % wavelet number  
     DCM.options.Nmodes   = 8;           % nr of modes for data selection
     DCM.options.h        = 1;           % nr of DCT components
@@ -157,18 +157,13 @@ if opt.run_dcm
     DCM.A{1}(4,3) = 1;
     
     % Connections modulated by condition
-    DCM.B{1} = zeros(numel(DCM.Sname));
-    DCM.B{1}(3,1) = 1;
-    DCM.B{1}(4,2) = 1;
-    DCM.B{1}(1,3) = 1;
-    DCM.B{1}(2,4) = 1;
+    DCM.B = [];
     
     % Input
     DCM.C = sparse(numel(DCM.Sname),0);
     
-    % Between trial effects
-    DCM.xU.name{1} = {'Main effect of condition: S1 > S2'};
-    DCM.xU.X(:,1)  = [1; -1];
+    % Condition-specific effects
+    %DCM.xU.X = sparse(1,0);
      
     % Set DCM name
     dcm_name = sprintf('%s_v%d', opt.dcm_prefix, opt.version);
@@ -178,7 +173,10 @@ if opt.run_dcm
 %     DCM.B{1} = DCM.A{1} + DCM.A{2} + eye(size(DCM.A{1}));
     DCM = get_priors_ei_cmc(DCM);
     
-    % Fix g_ei, g_ie, g_se parameters
+    % Fix all condition-specific parameters, because there is just one condition
+      % global g_ee, g_ii, g_ei, g_ie, g_se parameters
+        DCM.M.pC.B_g_ii = 0;  % Fix global g_ee parameters
+    DCM.M.pC.B_g_ee = 0;  % Fix global g_ee parameters
     DCM.M.pC.B_g_ei = 0;
     DCM.M.pC.B_g_ie = 0;
     DCM.M.pC.B_g_se = 0;
@@ -210,7 +208,6 @@ if opt.run_dcm
         DCM.options.DATA = 0;
         load(opt.fgm);
         DCM.xY = xY;
-        DCM.M.U = DCM.xY.U;
     end
     
     % Save options, priors and an analysis description

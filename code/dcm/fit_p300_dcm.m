@@ -1,7 +1,12 @@
-function fit_p300_dcm(data_file_name, results_folder)
+function fit_p300_dcm(data_file_name, results_folder,opt)
 
 
 
+
+%% Defaults
+if nargin<3
+    opt = struct;
+end
 
 
 %% Description
