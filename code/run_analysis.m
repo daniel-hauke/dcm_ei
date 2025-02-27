@@ -26,33 +26,38 @@ end
 
 
 %% Fit models to data
+opt = struct;
+
 % P300
 data_file_name = fullfile(pdata,'p300','bsnip_p300_grandmean_hc.mat');
 %data_file_name = fullfile(pdata,'p300','p300_grandmean_hc_f15.mat');
 results_folder = fullfile(presults,'p300');
-fit_p300_dcm(data_file_name,results_folder);
+fit_p300_dcm(data_file_name,results_folder,opt);
 
 % MMN
 data_file_name = fullfile(pdata,'mmn','napls_mmn_grandmean_hc.mat');
 results_folder = fullfile(presults,'mmn');
-fit_mmn_dcm(data_file_name,results_folder);
+fit_mmn_dcm(data_file_name,results_folder,opt);
 
 % P50
 data_file_name = fullfile(pdata,'p50','P50_grandmean_HC.mat');
 results_folder = fullfile(presults,'p50');
-fit_p50_dcm(data_file_name,results_folder);
-
+fit_p50_dcm(data_file_name,results_folder,opt);
 
 % 40 Hz ASSR
 data_file_name = fullfile(pdata,'assr','mean_S001_sensordata_spm.mat');
 results_folder = fullfile(presults,'assr');
-fit_assr_dcm(data_file_name,results_folder);
+fit_assr_dcm(data_file_name,results_folder,opt);
 
 % Resting-state
 data_file_name = fullfile(pdata,'rest','rs_eo_grandmean_hc.mat');
 results_folder = fullfile(presults,'rest');
-fit_rest_dcm(data_file_name,results_folder);
+fit_rest_dcm(data_file_name,results_folder,opt);
 
+data_file_name = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\merged_eo_ec\0154_prep_merged_eo_ec.mat';
+results_folder = fullfile(presults,'rest');
+opt.fgm = 'F:\BSNIP\rest\results\rest_grandmean\HC_csd.mat';
+fit_rest_dcm(data_file_name,results_folder,opt);
 
 
 %% Simulate from model
