@@ -34,7 +34,7 @@ opt.presults = results_folder;
 opt.conditions = {'Standard', 'Deviant'};
 
 % Plot posterior parameter estimates
-plt.param = {'B_g_ii','B_g_ee'}; 
+plt.param = {'B_g_ii','B_g_ee','G'}; 
 plt.visibility = 'off';       
 
 

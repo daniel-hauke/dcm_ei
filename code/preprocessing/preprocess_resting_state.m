@@ -6,12 +6,13 @@
 
 
 
-%DCM.xY.Dfile =  'E:\data\BSNIP\rest\rsEEG_BSNIP_preproc_v2\EC\MrejdMspmeeg_0050_EC_fe_rej_ica_MARA_int.mat';
-DCM.xY.Dfile = 'E:\data\BSNIP\rest\rsEEG_BSNIP_preproc_v2\EC\MrejdMspmeeg_0035_EC_fe_rej_ica_MARA_int.mat';
-
+DCM.xY.Dfile =  'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\EC\MrejdMspmeeg_0050_EC_fe_rej_ica_MARA_int.mat';
+DCM.xY.Dfile = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\EC\MrejdMspmeeg_0035_EC_fe_rej_ica_MARA_int.mat';
+clear spm_erp_L
 
 % Clean up previous source localisation
 D = spm_eeg_load(DCM.xY.Dfile);
+chanlabels(D)
 try D = rmfield(D,'inv'); end
 save(D); clear D;
 

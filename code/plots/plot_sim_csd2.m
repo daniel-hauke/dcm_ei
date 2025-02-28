@@ -18,8 +18,7 @@ idx_source = find(strcmp(sDCM{1}.Sname, source));
 
 
 %%
-%delta = [0 3.5];
-theta = [3.5 7.5];
+theta = [3 7.5];
 alpha = [7.5 14.5];
 beta  = [14.5 30];
 gamma = [30 50];
@@ -44,7 +43,7 @@ colors_sim = [cold_cols; [0 0 0]; warm_cols];
 
 % Some figure settings
 scrsz = get(0,'screenSize');
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.5*scrsz(3),.6*scrsz(4)],'Visible', opt.visibility);
+fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.35*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
 set(0,'DefaultAxesFontSize',14,'defaultLegendInterpreter','none')
 
 
@@ -66,22 +65,22 @@ for c = 1:n_conds
     if theta(2)>= min(sDCM{1}.Hz)
         xline(theta(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(theta(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(theta(1)+(theta(2)-theta(1))/2,max(y_sim(:)),'\theta','FontSize',14, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(theta(1)+(theta(2)-theta(1))/2,max(y_sim(:)),'\theta','FontSize',14, 'Fontweight','bold')
     end
     if alpha(2)>= min(sDCM{1}.Hz)
         xline(alpha(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(alpha(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(alpha(1)+(alpha(2)-alpha(1))/2,max(y_sim(:)),'\alpha','FontSize',14, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(alpha(1)+(alpha(2)-alpha(1))/2,max(y_sim(:)),'\alpha','FontSize',14, 'Fontweight','bold')
     end
     if beta(2)>= min(sDCM{1}.Hz)
         xline(beta(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(beta(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(beta(1)+(beta(2)-beta(1))/2,max(y_sim(:)),'\beta','FontSize',14, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(beta(1)+(beta(2)-beta(1))/2,max(y_sim(:)),'\beta','FontSize',14, 'Fontweight','bold')
     end
     if gamma(2)>= min(sDCM{1}.Hz)
         xline(gamma(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(gamma(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(gamma(1)+(gamma(2)-gamma(1))/2,max(y_sim(:)),'\gamma','FontSize',14, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(gamma(1)+(gamma(2)-gamma(1))/2,max(y_sim(:)),'\gamma','FontSize',14, 'Fontweight','bold')
     end
 end
 

@@ -54,7 +54,7 @@ data_file_name = fullfile(pdata,'rest','rs_eo_grandmean_hc.mat');
 results_folder = fullfile(presults,'rest');
 fit_rest_dcm(data_file_name,results_folder,opt);
 
-data_file_name = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\merged_eo_ec\0154_prep_merged_eo_ec.mat';
+data_file_name = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\merged_eo_ec\0050_prep_merged_eo_ec.mat';
 results_folder = fullfile(presults,'rest');
 opt.fgm = 'F:\BSNIP\rest\results\rest_grandmean\HC_csd.mat';
 fit_rest_dcm(data_file_name,results_folder,opt);
@@ -101,16 +101,17 @@ sim_erp(sim);
 
 
 % Options CSD
-sim.param = {'G'}; % Plot G instead of condition-specific parameter
+sim.param = {'G','B_g_ii','B_g_ee'}; % Plot G instead of condition-specific parameter
 sim.legend_fontsize = 12;
 
 % Rest
 clear spm_erp_L  % This script generates some persitant variabls called LastLpos LastL that need to be cleared
 sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
+sim.sim_title = {'eyes open', 'eyes closed'};  
 sim.legend_loc = 'East';
 sim.psave = fullfile(presults,'rest','simulations');    % Results folder
 sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1_T_63_128_128_64_S_0.mat'); % DCM file
+sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
 sim_csd(sim);
 
 % ASSR

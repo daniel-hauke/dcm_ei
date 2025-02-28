@@ -32,7 +32,7 @@ opt.presults = results_folder;
 opt.conditions = {'eyes open','eyes closed'};
 
 % Plot posterior parameter estimates
-plt.param = {'G'}; 
+plt.param = {'B_g_ii','B_g_ee','G'}; 
 plt.visibility = 'off';       
 
 
@@ -131,7 +131,7 @@ if opt.run_dcm
     DCM.options.h        = 1;           % nr of DCT components
     DCM.options.D        = 1;           % downsampling (downsample by factor of 2 to get to 125Hz sampling rate)
     DCM.options.han      = 0;           % Hanning window
-    DCM.M.Nmax           = 1;           % default: 64, just to have a quick check
+    DCM.M.Nmax           = 64;           % default: 64, just to have a quick check
 
     % Sources
     DCM.Sname = {'lPC', 'rPC', 'lFC', 'rFC'};

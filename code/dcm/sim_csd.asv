@@ -30,7 +30,7 @@ for p = 1:numel(sim.param)
     for pp = 1:numel(param_name)
         for c = 1:numel(sim.source)
             sim.legend_sim_title =  param_name{pp};
-            sim.sim_title = strcat(sim.source(c),{' '},sim_title);
+            sim.sim_title = strcat([sim.source(c) ' ',sim_title);
             fh = plot_sim_csd(sDCM(:,pp), sim.source{c}, sim);
             save_name = sprintf('%s_%s', sim.source{c}, param_name{pp});
             saveas(fh, fullfile( sim.psave , [save_name '.png']));

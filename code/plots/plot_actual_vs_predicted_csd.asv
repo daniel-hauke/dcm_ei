@@ -21,7 +21,7 @@ if nargin < 2,  freq = [];            end
 
 %% Get other relevant information
 n_sources = DCM.options.Nmodes;
-n_cond = numel(DCM.xY.y);
+n_conditions = numel(DCM.xY.y);
 ns = numel(DCM.M.Hz);              % number of sampled frequencies
 ny = length(spm_vec(DCM.xY.y{1}));    % total number of response variables
 nr   = ny/ns;                       % number response components
@@ -34,7 +34,7 @@ outerpos = [0.2*scrsz(3),0.2*scrsz(4),0.7*scrsz(3),0.8*scrsz(4)];
 fh = figure('OuterPosition', outerpos, 'Visible', visibility);
 set(0,'DefaultAxesFontSize',10)
 
-for c = 1:n_cond
+for c = 1:n_conditions
     
     
     %% compute model fit

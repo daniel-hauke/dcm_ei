@@ -65,6 +65,8 @@ for i = 1:numel(opt.group_fname)
             
             
             if isfile(fname_ec) && isfile(fname_eo)
+                
+                if ~isfile(fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s))))
                 count = count+1;
                 
                 
@@ -163,6 +165,9 @@ for i = 1:numel(opt.group_fname)
                 save(fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s))), 'DCM');
                 
                 clear spm_erp_L
+                else
+                    fprintf('%s: ID %s has been preprocessed b
+                end
             end
         end
     end
@@ -172,10 +177,15 @@ end
   
 
 %% Compute grandmean spectra
-% Load group & outlier data
-clear files;
+dcm_files = dir(fullfile(opt.pdata,'dcm_files_eo_ec','dcm*.mat'));
+load(fullfile(dcm_files(1).folder, dcm_files(1).name));
+xY = DCM.xY; % store the first xY structure as an example
+Nm = DCM.options.Nmodes;
+n_groups = 5;
+group_name = cell(n_groups,1);
+sample_size = NaN(n_groups,1);
 
-
+idx = 1;
 for i = 1:numel(opt.group_fname)
     group_data = xlsread(fullfile(opt.pgroups, opt.group_fname{i}));
     
@@ -199,7 +209,7 @@ for i = 1:numel(opt.group_fname)
         % Get files
         for s = 1:numel(ids)
             
-            fprintf('%d\n',ids(s))
+            %fprintf('%d\n',ids(s))
             dcm_file = fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s)));
             
             if isfile(dcm_file)
@@ -211,10 +221,10 @@ for i = 1:numel(opt.group_fname)
                 y_im{1} = y_im{1}+imag(DCM.xY.y{1});
                 y_im{2} = y_im{2}+imag(DCM.xY.y{2});
                 count = count+1;
-                
+          
                 catch err
                    warning('Could not extract data from %d', ids(s))
-                   warning('This was the error: %s',err);
+                   warning('This was the error: %s',err.message);
                 end
             end
         end
@@ -222,16 +232,27 @@ for i = 1:numel(opt.group_fname)
         % Divide by samples to get average
         y_real{1} = y_real{1}/count;
         y_real{2} = y_real{2}/count;
-        y_imag{1} = y_imag{1}/count;
-        y_imag{2} = y_imag{2}/count;
+        y_im{1} = y_im{1}/count;
+        y_im{2} = y_im{2}/count;
         
         % Create the complex number and save
-        y{1} = complex(y_real{1}, y_imag{1});
-        y{2} = complex(y_real{2}, y_imag{2});
+        y{1} = complex(y_real{1}, y_im{1});
+        y{2} = complex(y_real{2}, y_im{2});
         
-        save(fullfile(opt.presults,[opt.group_names{i}(g) '_csd.mat']),'y');
+        xY.y = y;
+        
+        save(fullfile(opt.presults,[opt.group_names{i}{g} '_csd.mat']),'xY');
+        
+        group_name{idx} = opt.group_names{i}{g};
+        sample_size(idx) = count;
+        idx = idx +1;
+        
         clear y
     end
 end
 
+fprintf('\n\n===Final sample sizes are:\n')
+for i = 1:n_groups
+    fprintf('%s: n=%d\n',group_name{i},sample_size(i))
+end
 
