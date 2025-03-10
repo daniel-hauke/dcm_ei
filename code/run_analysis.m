@@ -60,6 +60,12 @@ opt.fgm = 'F:\BSNIP\rest\results\rest_grandmean\HC_csd.mat';
 fit_rest_dcm(data_file_name,results_folder,opt);
 
 
+data_file_name = 'F:\BSNIP\rest\results\rest_grandmean\HC_all_subjects_merged.mat';
+results_folder = fullfile(presults,'rest');
+fit_rest_dcm(data_file_name,results_folder,opt);
+
+
+
 %% Simulate from model
 % Simulation options
 sim.param           = {'G','B_g_ii','B_g_ee'};        % Parameter fields to simulate from
@@ -68,7 +74,7 @@ sim.mode            = 'abs';                      % 'abs' or 'perc' for absolute
                                                   % or percentage value increase                      
 sim.vals            = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.est             = 1;                          % simulate from estimated parameters only
-sim.visibility      = 'off';
+sim.visibility      = 'on';
 sim.linewidth       = 1;
 sim.legend_fontsize = 10;
 sim.plot_diff       = 1;
@@ -107,10 +113,9 @@ sim.legend_fontsize = 12;
 % Rest
 clear spm_erp_L  % This script generates some persitant variabls called LastLpos LastL that need to be cleared
 sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
-sim.sim_title = {'eyes open', 'eyes closed'};  
+sim.sim_title = {'eyes closed','eyes open'};  
 sim.legend_loc = 'East';
 sim.psave = fullfile(presults,'rest','simulations');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
 sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
 sim_csd(sim);
 

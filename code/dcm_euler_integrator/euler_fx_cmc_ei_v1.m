@@ -272,7 +272,10 @@ f(:,1) = x(:,2);
 f(:,3) = x(:,4);
 f(:,5) = x(:,6);
 f(:,7) = x(:,8);
-f      = spm_vec(f); % added to test
+
+if isfield(M,'Hz')
+    f = spm_vec(f); % For some reason the csd version expects the stats as a vector
+end
 
 if nargout < 2; return, end
  

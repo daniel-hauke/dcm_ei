@@ -15,9 +15,9 @@ switch uid(1: end-1)
         % Cluster
     otherwise
         pvbsv = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/multistart/vbsvs_tau_s_4_sources_csd';
-        frerun =  '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest/multistart/vbsvs_to_rerun.mat';
-        presults = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest/multistart/dcms';
-        pdata = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/data/rest/rs_eo_grandmean_hc.mat';
+        frerun =  '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v2/multistart/vbsvs_to_rerun.mat';
+        presults = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v2/multistart/dcms';
+        pdata = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/data/rest/HC_all_subjects_merged.mat';
         pcode = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code';
 end
 
@@ -112,7 +112,7 @@ DCM.xY.Dfile = pdata_new;
 % DCM options
 DCM.options.analysis = 'CSD';       % analyze cross-spectral densities
 DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
-DCM.options.trials   = 1;       % index of ERPs within ERP/ERF file
+DCM.options.trials   = [1 2];       % index of ERPs within ERP/ERF file
 DCM.options.Tdcm(1)  = 0;           % start of peri-stimulus time to be modelled
 DCM.options.Tdcm(2)  = 50000;         % end of peri-stimulus time to be modelled
 DCM.options.Fdcm     = [3 48];     % frequency band to be modelled (default = 4-48 Hz)
@@ -120,7 +120,7 @@ DCM.options.Rft      = 7;           % wavelet number
 DCM.options.Nmodes   = 8;           % nr of modes for data selection
 DCM.options.h        = 1;           % nr of DCT components
 DCM.options.D        = 1;           % downsampling (downsample by factor of 2 to get to 125Hz sampling rate)
-DCM.options.han      = 1;           % Hanning window
+DCM.options.han      = 0;           % Hanning window
 DCM.M.Nmax           = 64;         % default: 64, just to have a quick check
 DCM.M.nograph        = 1;
 
@@ -149,22 +149,25 @@ DCM.A{1}(4,3) = 1;
 
 
 % Connections modulated by condition
-DCM.B = [];
+DCM.B{1} = zeros(numel(DCM.Sname));
+DCM.B{1}(3,1) = 1;
+DCM.B{1}(4,2) = 1;
+DCM.B{1}(1,3) = 1;
+DCM.B{1}(2,4) = 1;
 
 % Input
 DCM.C = sparse(numel(DCM.Sname),0);
 
-% Condition-specific effects
-%DCM.xU.X = sparse(1,0);
+% Between trial effects
+DCM.xU.name{1} = {'Main effect of condition: eyes closed > eyes open'};
+DCM.xU.X(:,1)  = [1; -1];
+
 
 % Connections modulated by condition
 %     DCM.B{1} = DCM.A{1} + DCM.A{2} + eye(size(DCM.A{1}));
 DCM = get_priors_ei_cmc(DCM);
 
-% Fix all condition-specific parameters, because there is just one condition
-% global g_ee, g_ii, g_ei, g_ie, g_se parameters
-DCM.M.pC.B_g_ii = 0;  % Fix global g_ee parameters
-DCM.M.pC.B_g_ee = 0;  % Fix global g_ee parameters
+% Fix g_ei, g_ie, g_se parameters
 DCM.M.pC.B_g_ei = 0;
 DCM.M.pC.B_g_ie = 0;
 DCM.M.pC.B_g_se = 0;
@@ -195,7 +198,7 @@ end
 DCM.name = dcm_fname;
 
 % Invert
-DCM = spm_dcm_csd_overwrite_prior_check_new(DCM);
+DCM = spm_dcm_csd_no_prior_check(DCM);
 
 save(DCM.name, 'DCM', spm_get_defaults('mat.format'));
 fprintf('\nInversion completed.\n\n');

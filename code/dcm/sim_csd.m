@@ -34,6 +34,10 @@ for p = 1:numel(sim.param)
             fh = plot_sim_csd(sDCM(:,pp), sim.source{c}, sim);
             save_name = sprintf('%s_%s', sim.source{c}, param_name{pp});
             saveas(fh, fullfile( sim.psave , [save_name '.png']));
+            
+            fh = plot_sim_csd_1f_slope(sDCM(:,pp), sim.source{c}, sim);
+            save_name = sprintf('%s_%s_1f_slope', sim.source{c}, param_name{pp});
+            saveas(fh, fullfile( sim.psave , [save_name '.png']));
         end
     end
 end

@@ -44,9 +44,10 @@ colors_sim = [cold_cols; [0 0 0]; warm_cols];
 
 % Some figure settings
 scrsz = get(0,'screenSize');
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.5*scrsz(3),.6*scrsz(4)],'Visible', opt.visibility);
+%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.5*scrsz(3),.6*scrsz(4)],'Visible', opt.visibility);
+fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.7*scrsz(4)],'Visible', opt.visibility);
 set(0,'DefaultAxesFontSize',14,'defaultLegendInterpreter','none')
-
+%set(0,'DefaultAxesFontSize',14)
 
 % Plot simulations
 for c = 1:n_conds

@@ -1,4 +1,4 @@
-function fit_assr_dcm(data_file_name, results_folder)
+function fit_assr_dcm(data_file_name, results_folder,opt)
 
 
 
@@ -227,7 +227,7 @@ if opt.run_dcm
     end
     
     % Invert
-    DCM = spm_dcm_csd_overwrite_prior_check_new(DCM);
+    DCM = spm_dcm_csd_no_prior_check(DCM);
     
     save(DCM.name, 'DCM', spm_get_defaults('mat.format'));
     

@@ -60,13 +60,15 @@ for i = 1:numel(opt.group_fname)
         % Get files
         for s = 1:numel(ids)
             
+            clear spm_erp_L
+            
             fname_ec = fullfile(opt.pdata,'EC',sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s)));
             fname_eo = fullfile(opt.pdata,'EO',sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s)));
             
             
             if isfile(fname_ec) && isfile(fname_eo)
                 
-                if ~isfile(fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s))))
+                %if ~isfile(fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s))))
                     count = count+1;
                     
                     
@@ -144,31 +146,31 @@ for i = 1:numel(opt.group_fname)
                     Nm = 8;
                     DCM.M.U = spm_dcm_eeg_channelmodes(DCM.M.dipfit,Nm);
                     
-                    DCM  = spm_dcm_csd_data(DCM);
-                    
-                    ccf      = spm_csd2ccf(DCM.xY.y,DCM.xY.Hz);
-                    scale    = max(spm_vec(ccf));
-                    DCM.xY.y = spm_unvec(8*spm_vec(DCM.xY.y)/scale,DCM.xY.y);
-                    
-                    
-                    Nm       = size(DCM.M.U,2);                    % number of spatial modes
-                    DCM.M.l  = Nm;
-                    DCM.M.Hz = DCM.xY.Hz;
-                    DCM.M.dt = DCM.xY.dt;
-                    
-                    
-                    % normalised precision
-                    %--------------------------------------------------------------------------
-                    DCM.xY.Q  = spm_dcm_csd_Q(DCM.xY.y);
-                    DCM.xY.X0 = sparse(size(DCM.xY.Q,1),0);
+%                     DCM  = spm_dcm_csd_data(DCM);
+%                     
+%                     ccf      = spm_csd2ccf(DCM.xY.y,DCM.xY.Hz);
+%                     scale    = max(spm_vec(ccf));
+%                     DCM.xY.y = spm_unvec(8*spm_vec(DCM.xY.y)/scale,DCM.xY.y);
+%                     
+%                     
+%                     Nm       = size(DCM.M.U,2);                    % number of spatial modes
+%                     DCM.M.l  = Nm;
+%                     DCM.M.Hz = DCM.xY.Hz;
+%                     DCM.M.dt = DCM.xY.dt;
+%                     
+%                     
+%                     % normalised precision
+%                     %--------------------------------------------------------------------------
+%                     DCM.xY.Q  = spm_dcm_csd_Q(DCM.xY.y);
+%                     DCM.xY.X0 = sparse(size(DCM.xY.Q,1),0);
                     
                     save(fullfile(opt.pdata,'dcm_files_eo_ec',sprintf('dcm_%04d_prep_merged_eo_ec.mat',ids(s))), 'DCM');
                     
                     clear spm_erp_L
                     
-                else
-                    fprintf('%s: ID %04d has been preprocessed before. Skippining...\n', opt.group_names{i}{g}, ids(s));
-                end
+%                 else
+%                     fprintf('%s: ID %04d has been preprocessed before. Skippining...\n', opt.group_names{i}{g}, ids(s));
+%                 end
             end
         end
     end

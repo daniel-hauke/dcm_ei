@@ -1,4 +1,4 @@
-function fit_mmn_dcm(data_file_name, results_folder)
+function fit_mmn_dcm(data_file_name, results_folder,opt)
 
 
 

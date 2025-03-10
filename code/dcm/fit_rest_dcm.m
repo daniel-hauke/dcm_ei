@@ -11,14 +11,14 @@ opt.matlab_version = version;
 
 %% Options
 opt.version          = 1;  % Set version (will be appended to results directory and dcm file)
-opt.run_headmodel    = 0;   % Run a headmodel (required once before running a dcm inversion)
+opt.run_headmodel    = 1;   % Run a headmodel (required once before running a dcm inversion)
 opt.run_dcm          = 1;   % Flag to run dcm inversion
 opt.plot_raw         = 0;   % Flag to plot raw data
 opt.plot_inversion   = 1;   % Flag to save the model inversion plot
 opt.plot_fit         = 1;   % Flag to plot the model fit
 opt.run_bpa          = 0;   % Flag to load bayesian parameter averages and use them as starting values
 opt.use_ep           = 0;   % Flag to use posterior from grandmean inversion as priors
-opt.use_gm           = 1;   % Flag to load and use grandmean data
+opt.use_gm           = 0;   % Flag to load and use grandmean data
 opt.plot_params      = 1;   % Flag to plot posterior parameter estimates
 
 
@@ -29,7 +29,7 @@ opt.dcm_prefix = 'dcm_rest_cmc_ei';  % prefix of dcm file (model and version wil
 opt.presults = results_folder;
 
 % Condition names
-opt.conditions = {'eyes open','eyes closed'};
+opt.conditions = {'eyes closed','eyes open'};
 
 % Plot posterior parameter estimates
 plt.param = {'B_g_ii','B_g_ee','G'}; 
@@ -167,7 +167,7 @@ if opt.run_dcm
     DCM.C = sparse(numel(DCM.Sname),0);
     
     % Between trial effects
-    DCM.xU.name{1} = {'Main effect of condition: S1 > S2'};
+    DCM.xU.name{1} = {'Main effect of condition: eyes closed > eyes open'};
     DCM.xU.X(:,1)  = [1; -1];
      
     % Set DCM name
