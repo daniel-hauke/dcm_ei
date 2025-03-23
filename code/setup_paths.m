@@ -43,7 +43,7 @@ setup_spm;
 % folder called
 backup_folder = fullfile(project_path,'toolboxes','backup_spm12_functions');
 warning('SPM12 functions need to be changed. This can mess up other analyses you are doing with this SPM version.')
-warning('The original functions are backed-up here: %s\n', backup_folder)
+warning('The original functions are backed-up here: %s', backup_folder)
 
 
 if ~exist(backup_folder)
@@ -80,7 +80,7 @@ end
 path_tapas = fileparts(which('tapas_ceode_fx_cmc.m'));
 backup_folder = fullfile(project_path,'toolboxes','backup_tapas_functions');
 warning('TAPAS functions needed to be changed. This can mess up other analyses you are doing with this TAPAS version.')
-warning('The original functions are backed-up here: %s\n', backup_folder)
+warning('The original functions are backed-up here: %s', backup_folder)
 
 
 if ~exist(backup_folder)
@@ -92,8 +92,6 @@ end
 
 if move_to_backup
     changed_tapas_functions = dir(fullfile(project_path,'toolboxes','changed_tapas_functions','*.m'));
-    warning('TAPAS functions need to be changed. This can mess up other analyses you are doing with this TAPAS version.')
-    warning('The original functions are backed-up here: %s\n', backup_folder)
     warning('The following functions have been removed from the TAPAS folder:')
     for i = 1:numel(changed_tapas_functions)
         original_fun = fullfile(path_tapas,changed_tapas_functions(i).name);

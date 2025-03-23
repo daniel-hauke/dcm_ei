@@ -7,12 +7,13 @@ presults = 'F:\dcm_ei\results\rest\multistart';
 presults = 'F:\dcm_ei\results\assr\multistart';
 %presults = 'F:\dcm_ei\results\p300\multistart';
 presults = 'F:\dcm_ei\results\p50\multistart';
+presults = 'F:\dcm_ei\results\rest_v2';
 
 pdcms = fullfile(presults,'dcms');
 perrorfiles = fullfile(presults,'errorfiles');
 
 % VBSVs
-all_vbsvs = 1:2501;
+all_vbsvs = 1:1501;
 
 %% 
 if overwrite_old_check

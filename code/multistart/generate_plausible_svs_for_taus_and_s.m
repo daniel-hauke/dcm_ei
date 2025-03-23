@@ -221,7 +221,11 @@ switch opt.data
         A{1}(4,3) = 1;
         
         % Connections modulated by condition
-        B = [];
+        B{1} = zeros(n_sources);
+        B{1}(3,1) = 1;
+        B{1}(4,2) = 1;
+        B{1}(1,3) = 1;
+        B{1}(2,4) = 1;
         
         % Input
         C = sparse(n_sources,0);
@@ -277,8 +281,8 @@ switch opt.data
         pE.B_g_ie = 0;
         pE.B_g_se = 0;
         
-        pC.B_g_ii = 0;
-        pC.B_g_ee = 0;
+        pC.B_g_ii = 1/8;
+        pC.B_g_ee = 1/8;
         pC.B_g_ei = 0;
         pC.B_g_ie = 0;
         pC.B_g_se = 0;
@@ -286,10 +290,15 @@ end
 
 
 %% Create starting value grid
+% [SS SP II DP]
 % Define plausible tau ranges
+% t1_range = log([2 16 32 64]./2);
+% t2_range = log([2 16 32 64 128]./2);
+% t3_range = log([2 16 32 64 128]./16);
+% t4_range = log([2 16 32 64 128]./28);
 t1_range = log([2 16 32 64]./2);
 t2_range = log([2 16 32 64 128]./2);
-t3_range = log([2 16 32 64 128]./16);
+t3_range = log([2 16 32]./16);
 t4_range = log([2 16 32 64 128]./28);
 s_range = linspace(-2,2,5);
 

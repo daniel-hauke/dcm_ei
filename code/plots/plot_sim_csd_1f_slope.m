@@ -42,12 +42,22 @@ warm_cols = flipud(autumn(sum(opt.vals>0)));
 cold_cols = winter(sum(opt.vals<0));
 colors_sim = [cold_cols; [0 0 0]; warm_cols];
 
+if isfield(opt,'flip_cols')
+    if opt.flip_cols
+        warm_cols = autumn(sum(opt.vals<0));
+        cold_cols = flipud(winter(sum(opt.vals>0)));
+        colors_sim = [warm_cols; [0 0 0]; cold_cols];
+    end
+end
+
+
 % Some figure settings
 scrsz = get(0,'screenSize');
-%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.5*scrsz(3),.6*scrsz(4)],'Visible', opt.visibility);
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.7*scrsz(4)],'Visible', opt.visibility);
-set(0,'DefaultAxesFontSize',14,'defaultLegendInterpreter','none')
-%set(0,'DefaultAxesFontSize',14)
+%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.35*scrsz(3),.6*scrsz(4)],'Visible', opt.visibility);
+fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.4*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
+set(0,'DefaultAxesFontSize',20,'defaultLegendInterpreter','none')
+set(0,'DefaultAxesFontName','Aptos')
+set(0,'DefaultAxesFontWeight','normal')
 
 % Plot simulations
 for c = 1:n_conds
@@ -56,9 +66,9 @@ for c = 1:n_conds
     for i = 1:numel(sDCM)
         plot(log(sDCM{1}.Hz),y_sim(:,i,c),'Color',colors_sim(i,:),'LineWidth',opt.linewidth)
     end
-    if c==1 && isfield(opt, 'legend_sim'); l{2,c}=legend(opt.legend_sim,'Location',opt.legend_loc); l{2,c}.FontSize = opt.legend_fontsize; end
-    if c==1 && isfield(opt, 'legend_sim_title'); title(l{2,c},opt.legend_sim_title); end
-    if isfield(opt, 'sim_title'); title(opt.sim_title{c}); end
+    %if c==1 && isfield(opt, 'legend_sim'); l{2,c}=legend(opt.legend_sim,'Location',opt.legend_loc); l{2,c}.FontSize = opt.legend_fontsize; end
+    %if c==1 && isfield(opt, 'legend_sim_title'); title(l{2,c},opt.legend_sim_title); end
+    if isfield(opt, 'sim_title'); title(opt.sim_title{c},'Fontweight','normal'); end
     xlabel('Frequency [log(Hz)]');
     ylabel(sprintf('Amplitude [log(%s)]','a.u.'));
     %xlim([min(sDCM{1}.Hz) max(sDCM{1}.Hz)]);
@@ -85,9 +95,9 @@ for c = 1:n_conds
 %         text(gamma(1)+(gamma(2)-gamma(1))/2,max(y_sim(:)),'\gamma','FontSize',14, 'Fontweight','bold','HorizontalAlignment', 'center')
 %     end
 xline(log(20),'--','HandleVisibility','off', 'LineWidth',1)
-text(log(20),max(y_sim(:)),'20 Hz','FontSize',12,'HorizontalAlignment', 'center')
+text(log(20),max(y_sim(:)),'20 Hz','FontSize',16,'HorizontalAlignment', 'center')
 xline(log(40),'--','HandleVisibility','off', 'LineWidth',1)
-text(log(40),max(y_sim(:)),'40 Hz','FontSize',12,'HorizontalAlignment', 'center')
+text(log(40),max(y_sim(:)-0.1*range(y_sim(:))),'40 Hz','FontSize',16,'HorizontalAlignment', 'center')
 end
 
 linkaxes([ax{1,:}],'xy');

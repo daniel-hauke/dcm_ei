@@ -64,11 +64,11 @@ try, DATA    = DCM.options.DATA;    catch, DATA     = 1;         end
 DCM.options.Nmodes = Nm;
 DCM.M.dipfit.model = model;
 DCM.M.dipfit.type  = spatial;
-
-if DATA
-    DCM  = spm_dcm_erp_data(DCM);                   % data
-    DCM  = spm_dcm_erp_dipfit(DCM, 1);              % spatial model
-end
+ 
+% if DATA
+%     DCM  = spm_dcm_erp_data(DCM);                   % data                    % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+%     DCM  = spm_dcm_erp_dipfit(DCM, 1);              % spatial model           % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+% end
 Ns   = length(DCM.A{1});                            % number of sources
 
 
@@ -146,20 +146,20 @@ DCM.M.u  = sparse(Ns,1);
 % Spatial modes
 %--------------------------------------------------------------------------
 % try
-%     DCM.M.U = spm_dcm_eeg_channelmodes(DCM.M.dipfit,Nm); % DH COMMENTED OUT
+%     DCM.M.U = spm_dcm_eeg_channelmodes(DCM.M.dipfit,Nm);      % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
 % end
  
 % get data-features (in reduced eigenspace)
 %==========================================================================
-if DATA
-    DCM  = spm_dcm_csd_data(DCM);
-end
+% if DATA
+%     DCM  = spm_dcm_csd_data(DCM);                             % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+% end
  
-% % scale data features (to a variance of about 8)              % DH COMMENTED OUT
+% % scale data features (to a variance of about 8)              
 % %--------------------------------------------------------------------------
-% ccf      = spm_csd2ccf(DCM.xY.y,DCM.xY.Hz);
-% scale    = max(spm_vec(ccf));
-% DCM.xY.y = spm_unvec(8*spm_vec(DCM.xY.y)/scale,DCM.xY.y);
+% ccf      = spm_csd2ccf(DCM.xY.y,DCM.xY.Hz);                   % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+% scale    = max(spm_vec(ccf));                                 % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+% DCM.xY.y = spm_unvec(8*spm_vec(DCM.xY.y)/scale,DCM.xY.y);     % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
 % 
 % 
 % % complete model specification and invert
@@ -171,9 +171,9 @@ DCM.M.dt = DCM.xY.dt;
   
 % % normalised precision
 % %--------------------------------------------------------------------------
-% DCM.xY.Q  = spm_dcm_csd_Q(DCM.xY.y);
-% DCM.xY.X0 = sparse(size(DCM.xY.Q,1),0);
-
+% DCM.xY.Q  = spm_dcm_csd_Q(DCM.xY.y);          % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+% DCM.xY.X0 = sparse(size(DCM.xY.Q,1),0);       % DH COMMENTED OUT, because we will pass the data directly from a precomputed grandmean participant
+warning('Using pre-computed spectra from DCM grandmean file');
 
 % Variational Laplace: model inversion
 %==========================================================================

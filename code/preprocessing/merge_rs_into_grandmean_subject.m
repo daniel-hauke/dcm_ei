@@ -12,6 +12,12 @@ opt.group_fname{2} = 'BSNIP1and2 Biotypes - Hope Oloye.xlsx';     % Excel file w
 opt.group_col{2} = [3 4 5]; %[6 3 4 5];                                 % Columns in excel file that have group code
 opt.group_names{2} = {'B1', 'B2', 'B3'}; %{'HC', 'B1', 'B2', 'B3'};                    % Group names (should match columns)
 
+opt.chan_order_60 = {'Fp1','Fpz','Fp2','AF3','AF4','F7','F5','F3','F1','Fz',...
+    'F2','F4','F6','F8','FT7','FC5','FC3','FC1','FCz','FC2','FC4','FC6',...
+    'FT8','T7','C5','C3','C1','Cz','C2','C4','C6','T8','TP7','CP5','CP3',...
+    'CP1','CPz','CP2','CP4','CP6','TP8','P7','P5','P3','P1','Pz','P2',...
+    'P4','P6','P8','PO7','PO5','PO3','POz','PO4','PO6','PO8','O1','Oz',...
+    'O2'};
 
 
 %% Specifcy opt.user-specific paths
@@ -25,8 +31,9 @@ switch uid(1:end-1)
         opt.pspm    = 'C:\projects\toolboxes\spm12_v7771';
         opt.pgroups = 'C:\Users\danie\Dropbox\BSNIP\';
         opt.poutliers = 'C:\Users\danie\Dropbox\BSNIP\EEG_Code';
-        opt.pdata = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2';
-        opt.presults = 'F:\BSNIP\rest\results\rest_grandmean';
+        opt.pdata = 'F:\BSNIP\rest\results\rsEEG_preprocessed_final_files_v3';
+        opt.pdata_60_chan = 'F:\BSNIP\rest\results\rsEEG_preprocessed_final_files_60_chan_v3';
+        opt.presults = 'F:\BSNIP\rest\results\rest_grandmean_v2';
     otherwise
         error('Undefined user! Please specify a user in the "Specifcy user-specific paths" Section and provide the relevant paths.');
 end
@@ -37,9 +44,9 @@ spm('defaults', 'eeg');
 
 % Create folders
 [~, ~] = mkdir(opt.presults);
-[~, ~] = mkdir(fullfile(opt.pdata,'merged_eo_ec'));
-[~, ~] = mkdir(fullfile(opt.pdata,'dcm_files_eo_ec'));
-
+% [~, ~] = mkdir(fullfile(opt.pdata,'merged_eo_ec'));
+% [~, ~] = mkdir(fullfile(opt.pdata,'dcm_files_eo_ec'));
+[~, ~] = mkdir(opt.pdata_60_chan);
 
 %% Merge eyes-open and eyes-closed conditions and compute individual spectra
 % Load group & outlier data
@@ -65,29 +72,97 @@ for i = 1:numel(opt.group_fname)
         % Get files
         for s = 1:numel(ids)
             
-            fname_ec = fullfile(opt.pdata,'EC',sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s)));
-            fname_eo = fullfile(opt.pdata,'EO',sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s)));
+            %             fname_ec = fullfile(opt.pdata,'EC',sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s)));
+            %             fname_eo = fullfile(opt.pdata,'EO',sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s)));
+            fname_ec = fullfile(opt.pdata, sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s)));
+            fname_eo = fullfile(opt.pdata,sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s)));
             
             if isfile(fname_ec)
                 D = spm_eeg_load(fname_ec);
-                if nchannels(D)==64
-                    D = conditions(D,1:ntrials(D), repmat({'eyes closed'}, ntrials(D),1));
-                    save(D); clear D;
-                    count = count+1;
-                    count_ec = count_ec+1;
-                    files{count,1} = fname_ec;
+                %if nchannels(D)<35
+                
+                % correct condition labels
+                D = spm_eeg_load(fname_ec);
+                D = conditions(D,1:ntrials(D), repmat({'eyes closed'}, ntrials(D),1));
+                
+                %%
+                D_new = clone(D, fullfile(opt.pdata_60_chan,['60-' sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s))]), [60, nsamples(D), ntrials(D)], 3);
+                D_new(:,:,:) = D(1:60,:,:);
+                
+                % restore info from old file and save
+                D_new = conditions(D_new, conditions(D_new), conditions(D));
+                D_new = chanlabels(D_new, D.chanlabels(1:60), D.chanlabels(1:60));
+                D_new = chantype(D_new, D.chantype(1:60), D.chantype(1:60));
+                D_new = units(D_new, D.units(1:60), D.units(1:60));
+                try D_new = badtrials(D_new, badtrials(D_new), badtrials(D)); end
+                D_new = badchannels(D_new, D.badchannels(1:60), D.badchannels(1:60));
+                D_new = type(D_new, 'evoked');
+                D_new = coor2D(D_new, [], D.coor2D);
+                save(D_new);
+                
+                chanlabels_old = [chanlabels(D_new)]';
+                S = [];
+                S.montage.tra = zeros(numel(opt.chan_order_60));
+                for j = 1:numel(opt.chan_order_60)
+                    S.montage.tra(j,find(strcmp(chanlabels_old{j},opt.chan_order_60))) = 1;
                 end
+                S.montage.labelnew = opt.chan_order_60;
+                S.montage.labelorg = chanlabels_old;
+                S.D = D_new;
+                D_new = spm_eeg_montage(S);
+                fname_ec = fullfile(opt.pdata_60_chan,['60-' sprintf('MrejdMspmeeg_%04d_EC_fe_rej_ica_MARA_int.mat',ids(s))]);
+                move(D_new,fname_ec);
+                
+                clear D;
+                count = count+1;
+                count_ec = count_ec+1;
+                files{count,1} = fname_ec;
+                %end
             end
             
             if isfile(fname_eo)
                 D = spm_eeg_load(fname_eo);
-                if nchannels(D)==64
-                    D = conditions(D,1:ntrials(D), repmat({'eyes open'}, ntrials(D),1));
-                    save(D); clear D;
-                    count = count+1;
-                    count_eo = count_eo+1;
-                    files{count,1} = fname_eo;
+                %if nchannels(D)<35
+                
+                % correct condition labels
+                D = spm_eeg_load(fname_eo);
+                D = conditions(D,1:ntrials(D), repmat({'eyes open'}, ntrials(D),1));
+                
+                %%
+                D_new = clone(D, fullfile(opt.pdata_60_chan,['60-' sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s))]), [60, nsamples(D), ntrials(D)], 3);
+                D_new(:,:,:) = D(1:60,:,:);
+                
+                % restore info from old file and save
+                D_new = conditions(D_new, conditions(D_new), conditions(D));
+                D_new = chanlabels(D_new, D.chanlabels(1:60), D.chanlabels(1:60));
+                D_new = chantype(D_new, D.chantype(1:60), D.chantype(1:60));
+                D_new = units(D_new, D.units(1:60), D.units(1:60));
+                try D_new = badtrials(D_new, badtrials(D_new), badtrials(D)); end
+                D_new = badchannels(D_new, D.badchannels(1:60), D.badchannels(1:60));
+                D_new = type(D_new, 'evoked');
+                D_new = coor2D(D_new, [], D.coor2D);
+                save(D_new);
+                
+                chanlabels_old = [chanlabels(D_new)]';
+                S = [];
+                S.montage.tra = zeros(numel(opt.chan_order_60));
+                for j = 1:numel(opt.chan_order_60)
+                    S.montage.tra(j,find(strcmp(chanlabels_old{j},opt.chan_order_60))) = 1;
                 end
+                S.montage.labelnew = opt.chan_order_60;
+                S.montage.labelorg = chanlabels_old;
+                S.D = D_new;
+                D_new = spm_eeg_montage(S);
+                
+                fname_eo = fullfile(opt.pdata_60_chan,['60-' sprintf('MrejdMspmeeg_%04d_EO_fe_rej_ica_MARA_int.mat',ids(s))]);
+                move(D_new,fname_eo);
+                
+                clear D D_new;
+                
+                count = count+1;
+                count_eo = count_eo+1;
+                files{count,1} = fname_eo;
+                %end
             end
         end
         

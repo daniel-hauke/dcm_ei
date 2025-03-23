@@ -7,7 +7,7 @@ function sim_csd(sim)
 if ischar(sim.dcm)
     load(sim.dcm);
 end
-
+clear spm_erp_L 
 
 %% Simulations
 try sim_title = sim.sim_title; end

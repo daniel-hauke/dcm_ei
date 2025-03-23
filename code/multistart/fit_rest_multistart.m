@@ -7,10 +7,11 @@ switch uid(1: end-1)
     % Daniel's PC
     case 'laptop-0jhjt7kf\danie'
         pvbsv = 'C:\projects\dcm_ei\results\multistart\vbsvs_tau_s_4_sources_csd';
-        presults = 'C:\projects\dcm_ei\results\rest\multistart\vbsvs_to_rerun.mat';
-        pdata = 'C:\projects\dcm_ei\results\rest\multistart\dcms';
+        frerun = 'C:\projects\dcm_ei\results\rest\multistart\vbsvs_to_rerun.mat';
+        presults = 'C:\projects\dcm_ei\results\rest\multistart\dcms';
+        pdata =  'F:\BSNIP\rest\results\rest_grandmean\HC_all_subjects_merged.mat';
         pcode = 'C:\projects\dcm_ei\code';
-        
+        pgmfile = 'C:\projects\dcm_ei\results\rest\gmDCM_rest.mat';
         
         % Cluster
     otherwise
@@ -19,11 +20,13 @@ switch uid(1: end-1)
         presults = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v2/multistart/dcms';
         pdata = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/data/rest/HC_all_subjects_merged.mat';
         pcode = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code';
+        pgmfile = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code/utils/gmDCM_rest.mat';
 end
 
 %% Options
 use_as_sv = 0;
 use_as_prior = 1;
+use_gm = 1;
 %rerun = 1;
 
 %% Load correct vbsv for rerunning
@@ -178,6 +181,14 @@ DCM.M.pC.G(4) = 0;
 DCM.M.pC.G(5) = 0;
 
 
+%% Load grandmean data instead
+if use_gm
+    gmDCM = load(pgmfile);
+    DCM = gmDCM.DCM;
+    DCM.M.nograph = 1;
+end
+
+
 %% Load starting values
 load(fullfile(pvbsv,['vbsv_' num2str(vbsv) '.mat']));
 
@@ -198,7 +209,7 @@ end
 DCM.name = dcm_fname;
 
 % Invert
-DCM = spm_dcm_csd_no_prior_check(DCM);
+DCM = spm_dcm_csd_no_prior_check_gm(DCM);
 
 save(DCM.name, 'DCM', spm_get_defaults('mat.format'));
 fprintf('\nInversion completed.\n\n');

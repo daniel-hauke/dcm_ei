@@ -7,7 +7,7 @@ function sim_erp(sim)
 if ischar(sim.dcm)
     load(sim.dcm);
 end
-
+clear spm_erp_L
 
 %% Simulations   
 % Convert legend entries to strings

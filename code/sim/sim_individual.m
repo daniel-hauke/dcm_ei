@@ -1,5 +1,6 @@
 function [sDCM, param_name] = sim_individual(DCM, param, opt)
 
+
 field = getfield(DCM.Ep, param);
 
 
