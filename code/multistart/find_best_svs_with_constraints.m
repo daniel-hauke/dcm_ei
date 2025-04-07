@@ -11,9 +11,9 @@ presults = {'F:\dcm_ei\results\assr\multistart_15-48Hz'};
 fnames = {'dcm_assr_cmc_ei_v1_vbsv%d.mat'};
 condition_labels = {'40Hz ASSR'};
 
-presults = {'F:\dcm_ei\results\rest\multistart'};
-fnames = {'dcm_assr_cmc_ei_v1_vbsv%d.mat'};
-condition_labels = {'eyes open'};
+presults = {'D:\BSNIP\dcm_ei\results\rest_v3\multistart'};
+fnames = {'dcm_rest_cmc_ei_v1_vbsv%d.mat'};
+condition_labels = {'Eyes Closed', 'Eyes Open'};
 
 % presults = {'F:\dcm_ei\results\p300\multistart_bsnip'};
 % fnames = {'bsnip_dcm_p300_grandmean_hc_cmc_ei_v1_vbsv%d.mat'};
@@ -24,16 +24,17 @@ condition_labels = {'eyes open'};
 % condition_labels = {'Std','Dev'};
 
 
-presults = {'F:\dcm_ei\results\p50\multistart'};
-fnames = {'dcm_p50_cmc_ei_v1_vbsv%d.mat'};
-condition_labels = {'S1','S2'};
+% presults = {'F:\dcm_ei\results\p50\multistart'};
+% fnames = {'dcm_p50_cmc_ei_v1_vbsv%d.mat'};
+% condition_labels = {'S1','S2'};
 
 n_vsbv = 2501;
+n_vsbv = 1501;
 
 %% Contraints
 range_ss = [1 60];
 range_sp = [1 200];
-range_ii = [1 2];
+range_ii = [1 30];
 range_dp = [1 200];
 
 
@@ -45,6 +46,7 @@ lower_bound = [range_ss(1) range_sp(1) range_ii(1) range_dp(1)];
 F = NaN(n_vsbv,numel(presults));
 T = NaN(n_vsbv,4,numel(presults));
 T_prior = NaN(n_vsbv,4,numel(presults));
+S_prior = NaN(n_vsbv,numel(presults));
 files = cell(n_vsbv,numel(presults));
 vbsvs = 1:n_vsbv';
 
@@ -57,6 +59,8 @@ for r = 1:numel(presults)
             load(dcm_file);
             T(v,:,r) = convert_tau_to_ms(DCM.Ep.T);
             T_prior(v,:,r) = convert_tau_to_ms(DCM.M.pE.T);
+            S_prior(v,r) = DCM.M.pE.S;
+            
             
             % Check if posterior falls within specified range
             if all((T(v,:,r) < upper_bound) & ( T(v,:,r) > lower_bound))
@@ -80,7 +84,7 @@ T_prior = T_prior(keep,:,:);
 files = files(keep,:);
 vbsvs = vbsvs(keep);
 F = F(keep,:);
-
+S_prior = S_prior(keep,:);
 
 %% Compute best models
 [~, m] = maxk(sum(F,2),3);
@@ -89,6 +93,7 @@ F = F(keep,:);
 T_prior(m,:,:)
 T(m,:,:)
 vbsvs(m)
+S_prior(m)'
 %files{m,1}
 
 

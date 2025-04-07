@@ -13,7 +13,7 @@ setup_paths;
 switch uid(1: end-1)
     
     % Daniel's PC
-    case 'laptop-0jhjt7kf\danie'
+    case {'laptop-0jhjt7kf\danie', 'dell-cvmyz84\daniel'}
         presults = 'C:\projects\dcm_ei\results';
         pdata = 'C:\projects\dcm_ei\data';
         pcode = 'C:\projects\dcm_ei\code';    
@@ -54,20 +54,19 @@ results_folder = fullfile(presults,'assr_replication');
 fit_assr_dcm(data_file_name,results_folder,opt);
 
 % Resting-state
-data_file_name = fullfile(pdata,'rest','rs_eo_grandmean_hc.mat');
-results_folder = fullfile(presults,'rest');
-fit_rest_dcm(data_file_name,results_folder,opt);
-
 data_file_name = 'F:\BSNIP\rest\rsEEG_BSNIP_preproc_v2\merged_eo_ec\0050_prep_merged_eo_ec.mat';
 results_folder = fullfile(presults,'rest');
 opt.fgm = 'F:\BSNIP\rest\results\rest_grandmean\HC_csd.mat';
 fit_rest_dcm(data_file_name,results_folder,opt);
 
-
-data_file_name = 'F:\BSNIP\rest\results\rest_grandmean\HC_all_subjects_merged.mat';
-results_folder = fullfile(presults,'rest');
+data_file_name = 'C:\projects\dcm_ei\data\rest\HC_all_subjects_merged.mat';
+results_folder = fullfile(presults,'rest_v2');
 fit_rest_dcm(data_file_name,results_folder,opt);
 
+data_file_name = 'E:\BSNIP\rest\results\rsEEG_preprocessed_final_files_60_chan_v3\merged_eo_ec\0050_prep_merged_eo_ec.mat';
+opt.fgm = 'D:\BSNIP\dcm_ei\data\rest\HC_csd.mat';
+results_folder = fullfile(presults,'rest_v3');
+fit_rest_dcm(data_file_name,results_folder,opt);
 
 
 %% Simulate from model
@@ -152,14 +151,15 @@ sim_erp(sim);
 
 
 % Rest
+sim.psave = fullfile(presults,'rest_v3','simulations');    % Results folder
+sim.dcm = fullfile(presults,'rest_v3','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
+
 sim.param = {'B_g_ee'}; % Plot G instead of condition-specific parameter
 sim.flip_cols = 0;
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
 sim.sim_title = {'Eyes Closed','Eyes Open'};  
 sim.legend_loc = 'East';
-sim.psave = fullfile(presults,'rest','simulations');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
 sim_csd(sim);
 
 sim.param = {'B_g_ii'}; % Plot G instead of condition-specific parameter
@@ -168,8 +168,6 @@ sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
 sim.sim_title = {'Eyes Closed','Eyes Open'};  
 sim.legend_loc = 'East';
 sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
-sim.psave = fullfile(presults,'rest','simulations');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
 sim_csd(sim);
 
 sim.param = {'G'}; % Plot G instead of condition-specific parameter
@@ -178,19 +176,21 @@ sim.legend_fontsize = 12;
 sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
 sim.sim_title = {'eyes closed','eyes open'};  
 sim.legend_loc = 'East';
-sim.psave = fullfile(presults,'rest','simulations','G');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.vals = linspace(-1,1,9);  
+sim.psave = fullfile(presults,'rest_v3','simulations','G1');    % Results folder
 sim_csd(sim);
 
 sim.param = {'G'}; % Plot G instead of condition-specific parameter
 sim.flip_cols = 1;
 sim.legend_fontsize = 12;
 sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
+sim.vals = linspace(-0.5,0.5,9);  
+%sim.vals = linspace(-1,1,9);  
 sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
 sim.sim_title = {'eyes closed','eyes open'};  
 sim.legend_loc = 'East';
-sim.psave = fullfile(presults,'rest','simulations','G_cols_flipped');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
+sim.psave = fullfile(presults,'rest_v3','simulations','G2_cols_flipped');    % Results folder
 sim_csd(sim);
 
 
