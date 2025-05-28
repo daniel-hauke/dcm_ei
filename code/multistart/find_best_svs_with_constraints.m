@@ -19,9 +19,10 @@ condition_labels = {'Eyes Closed', 'Eyes Open'};
 % fnames = {'bsnip_dcm_p300_grandmean_hc_cmc_ei_v1_vbsv%d.mat'};
 % condition_labels = {'Std','Dev'};
 % 
-% presults = {'F:\dcm_ei\results\p300\multistart_napls'};
-% fnames = {'dcm_p300_cmc_ei_v1_vbsv%d.mat'};
-% condition_labels = {'Std','Dev'};
+presults = {'D:\BSNIP\dcm_ei\results\p300\multistart_napls'};
+fnames = {'dcm_p300_cmc_ei_v1_vbsv%d.mat'};
+condition_labels = {'Standard','Target'};
+
 
 
 % presults = {'F:\dcm_ei\results\p50\multistart'};
