@@ -39,50 +39,27 @@ saveas(gcf, fullfile(pplots,'model_fit.png'))
 
 
 
-%% Simulate data with empirical noise
-noise = 'estimated';
+%% Plot parameter identifiability
+which_params = [309 310];
+param_names = {'B-g_{ee}', 'B-g_{ii}'};
 
 % P50
-pdcms = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\dcms';
-pdata = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\data';
-presults = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated\sim_dcms';
-%precov_run_headmodel(pdata);
-mrecov_sim_data_cluster(pdcms, pdata, presults, noise);
+presults = 'C:\projects\dcm_ei\results\P50\parameter_recovery_hc_grandmean\dcms';
+pplots = 'C:\projects\dcm_ei\results\p50\parameter_identifiability';
+pident_correlation_matrix(presults, pplots, which_params, param_names)
 
 % MMN
-pdcms = 'C:\projects\dcm_ei\results\mmn\parameter_recovery_hc_grandmean\dcms';
-pdata = 'C:\projects\dcm_ei\results\mmn\parameter_recovery_hc_grandmean\data';
-presults = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated\sim_dcms';
-%precov_run_headmodel(pdata);
-mrecov_sim_data_cluster(pdcms, pdata, presults, noise);
+presults = 'C:\projects\dcm_ei\results\mmn\parameter_recovery_hc_grandmean\dcms';
+pplots = 'C:\projects\dcm_ei\results\mmn\parameter_identifiability';
+pident_correlation_matrix(presults, pplots, which_params, param_names)
 
 % P300
-pdcms = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\dcms';
-pdata = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\data';
-presults = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated\sim_dcms';
-%precov_run_headmodel(pdata);
-mrecov_sim_data_cluster(pdcms, pdata, presults, noise);
+presults = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\dcms';
+pplots = 'C:\projects\dcm_ei\results\p300_napls\parameter_identifiability';
+pident_correlation_matrix(presults, pplots, which_params, param_names)
 
 
-%% Reinvert models (on cluster)
-% Use submit_p50_mrecov.sh, submit_mmn_mrecov.sh and submit_p300_mrecov.sh  
-% to submit cluster job.
-% These bash scripts will run the mrecov_reinvert_cluster.m script for 
-% each DCM.
 
 
-%% Plot Compute confusion matrix
-% MMN
-presults = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
 
-% P50
-presults = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
 
-% P300
-presults = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
