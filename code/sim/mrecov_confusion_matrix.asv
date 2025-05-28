@@ -1,0 +1,19 @@
+function mrecov_confusion_matrix(pdcms)
+
+
+
+%% Options
+num_participants = 50;
+num_true_models = 4;
+num_fitting_models = 4;
+
+
+
+%% Collect F
+for p = 1:num_participants
+    
+    
+    
+end
+end
+end
