@@ -73,16 +73,16 @@ mrecov_sim_data_cluster(pdcms, pdata, presults, noise);
 
 %% Plot Compute confusion matrix
 % MMN
-presults = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated';
+pdcms = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated';
 pplots = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated\plots';
 mrecov_confusion_matrix(pdcms,pplots)
 
 % P50
-presults = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated';
+pdcms = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated';
 pplots = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated\plots';
 mrecov_confusion_matrix(pdcms,pplots)
 
 % P300
-presults = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated';
+pdcms = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated';
 pplots = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated\plots';
 mrecov_confusion_matrix(pdcms,pplots)

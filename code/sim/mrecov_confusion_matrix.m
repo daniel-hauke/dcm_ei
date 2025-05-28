@@ -1,4 +1,4 @@
-function mrecov_confusion_matrix(pdcms, pplots)
+function mrecov_confusion_matrix(pdcms,pplots)
 
 
 
@@ -12,9 +12,9 @@ num_fitting_models = 4;
 F = NaN(num_participants, num_fitting_models, num_true_models);
 for p = 1:num_participants
     for t = 1:num_true_models
-        for f = 1:num_fit_models
-            load(fullfile(pdcms, sprintf('rDCM_%03d_tm%d_fm%d.mat'));
-            F(p,f,t) = DCM.F;
+        for f = 1:num_fitting_models
+            load(fullfile(pdcms,'rec_dcms', sprintf('rDCM_%03d_tm%d_fm%d.mat',p,t,f)));
+            F(p,f,t) = rDCM.F;
             clear DCM;
         end
     end
@@ -22,17 +22,26 @@ end
 
 
 %% Compute confusion matrix
-C = NaN(num_fitting_models, num_true_models);
+C_pxp = NaN(num_fitting_models, num_true_models);
+C_xp = NaN(num_fitting_models, num_true_models);
 for t = 1:num_true_models
     [alpha,exp_r,xp,pxp,bor] = spm_BMS (F(:,:,t));
-    C(:,t) = pxp;
+    C_pxp(t,:) = pxp;
+    C_xp(t,:) = xp;
 end
 
 
 %% Plot confusion matrix
 model_names = {'null', 'B-g_{ee}', 'B-g_{ii}', 'full'};
-fh = plot_C(C,model_names);
-saveas(gcf, fullfile(pplots,'model_confusion_matrix.fig'))
-saveas(gcf, fullfile(pplots,'model_confusion_matrix.png'))
+fh = plot_C(C_pxp,model_names);
+[~, ~] = mkdir(pplots);
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.fig'))
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.png'))
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.svg'))
 
+fh = plot_C(C_xp,model_names);
+[~, ~] = mkdir(pplots);
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.fig'))
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.png'))
+saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.svg'))
 
