@@ -84,14 +84,14 @@ try opt.vals{2}{strcmp(opt.vals{2},'0')} = 'Ep'; end % try and catch, since user
 
 % Some figure settings
 scrsz = get(0,'screenSize');
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),0.945*scrsz(3),0.45*scrsz(4)],'Visible', opt.visibility);
+fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),0.315*scrsz(3),0.45*scrsz(4)],'Visible', opt.visibility);
 set(0,'DefaultAxesFontSize',20,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
 
 % Plot simulations
-for c = 1:n_conds
-    ax{1,c} = subplot(1,n_conds,c);
+for c = 3%1:n_conds
+    %ax{1,c} = subplot(1,n_conds,c);
     
     data = y_sim(:,:,c);
     

@@ -59,9 +59,9 @@ end
 
 % Some figure settings
 scrsz = get(0,'screenSize');
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.5*scrsz(4)],'Visible', opt.visibility);
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
-set(0,'DefaultAxesFontSize',20,'defaultLegendInterpreter','none')
+%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.5*scrsz(4)],'Visible', opt.visibility);
+fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),1.1*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
+set(0,'DefaultAxesFontSize',22,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
 
