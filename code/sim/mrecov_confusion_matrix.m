@@ -39,9 +39,9 @@ saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.fig'))
 saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.png'))
 saveas(gcf, fullfile(pplots,'model_confusion_matrix_pxp.svg'))
 
-fh = plot_C(C_xp,model_names);
-[~, ~] = mkdir(pplots);
-saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.fig'))
-saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.png'))
-saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.svg'))
+% fh = plot_C(C_xp,model_names);
+% [~, ~] = mkdir(pplots);
+% saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.fig'))
+% saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.png'))
+% saveas(gcf, fullfile(pplots,'model_confusion_matrix_xp.svg'))
 

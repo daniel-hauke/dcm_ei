@@ -38,7 +38,8 @@ use_as_prior = 1;
 
 %% Get file and id
 files = dir(fullfile(pdata,'*.mat*'));
-id = files(s).name(9:15);
+id = extractBetween(files(s).name, 'NAPLS-', '-1mmnfaster');
+id = id{1};
 fdata = fullfile(pdata,files(s).name);
 
 

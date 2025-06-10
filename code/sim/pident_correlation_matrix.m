@@ -80,7 +80,9 @@ figure('WindowState', 'maximized');
 imagesc(c_all)
 caxis([-1 1])
 colormap(cmap)
-colorbar
+cb = colorbar;
+cb.Ticks = [-1, -0.6, 0, 0.6, 1]; 
+cb.TickLabels = {'-1.0', '-0.6', ' 0.0', ' 0.6', ' 1.0'}; 
 axis('square');
 set(findall(gcf,'-property','FontSize'),'FontSize',min_fontsize)
 xlabel('Parameters','FontSize',min_fontsize+8)
@@ -94,15 +96,17 @@ saveas(gcf, fullfile(pplots,'paramter_identifiability_all.fig'))
 saveas(gcf, fullfile(pplots,'paramter_identifiability_all.png'))
 saveas(gcf, fullfile(pplots,'paramter_identifiability_all.svg'))
 
-fh = figure('Position',  [100, 100, 540, 500]);
-min_fontsize = 16;
+fh = figure('Position',  [100, 100, 300, 300]);
+min_fontsize = 10;
 imagesc(c_spec)
 caxis([-1 1])
 %colormap(flipud(gray))
 colormap(cmap)
 add_values_to_imagesc(c_spec);  % Add values onto imagesc
 axis('square');
-colorbar
+cb = colorbar;
+cb.Ticks = [-1, -0.6, 0, 0.6, 1]; 
+cb.TickLabels = {'-1.0', '-0.6', ' 0.0', ' 0.6', ' 1.0'}; 
 set(findall(gcf,'-property','FontSize'),'FontSize',min_fontsize)
 xlabel('Parameters','FontSize',min_fontsize+4)
 ylabel('Parameters','FontSize',min_fontsize+4)

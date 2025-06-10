@@ -82,12 +82,12 @@ precov_plot_results(presults, pplots, which_params, param_names, col)
 
 % P50
 presults = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\estimated';
-pplots = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\estimated\plots';
+pplots = 'C:\projects\dcm_ei\results\p50\parameter_recovery\estimated\plots';
 col = [253, 141, 60]/256;
 precov_plot_results(presults, pplots, which_params, param_names, col)
 
 % P300
-presults = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\estimated';
-pplots = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\estimated\plots';
+presults = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery\estimated';
+pplots = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery\estimated\plots';
 col = [43, 140, 190]/256;
 precov_plot_results(presults, pplots, which_params, param_names, col)

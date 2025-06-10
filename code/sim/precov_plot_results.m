@@ -1,4 +1,4 @@
-function precov_plot_results(presults, pplots, which_params, param_names)
+function precov_plot_results(presults, pplots, which_params, param_names,col)
 %--------------------------------------------------------------------------
 % Function to reinvert DCM on simulated data on the cluster.
 %--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ p_rec = p_rec(:,which_params);
 
 %% Plot parameters
 % Options
-min_fontsize = 16;
+min_fontsize = 18;
 set(0,'DefaultAxesFontSize',min_fontsize,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
@@ -82,8 +82,11 @@ for i_p = 1:numel(which_params)
     end
 
     subplot(rows,cols,i_p)
-    scatter(p_sim(:,i_p), p_rec(:,i_p), 40,...
-        'MarkerFaceColor', [.2 .2 .2],...
+%     scatter(p_sim(:,i_p), p_rec(:,i_p), 40,...
+%         'MarkerFaceColor', [.2 .2 .2],...
+%         'MarkerEdgeColor', 'k')
+      scatter(p_sim(:,i_p), p_rec(:,i_p), 40,...
+        'MarkerFaceColor', col,...
         'MarkerEdgeColor', 'k')
     alpha(.5);
     lsline;
@@ -93,8 +96,8 @@ for i_p = 1:numel(which_params)
     text(.05,.9,...
         sprintf('ICC = %.2f\nr = %.2f\n%s',i, r, p_verb),...
         'FontSize', min_fontsize, 'Units', 'normalized');
-    xlabel('ground truth','FontSize', min_fontsize+4);
-    ylabel('recovered','FontSize', min_fontsize+4);
+    xlabel([param_names{i_p} ' (simulated)'],'FontSize', min_fontsize+4);
+    ylabel([param_names{i_p} ' (recovered)'],'FontSize', min_fontsize+4);
     
     maxval = max(max(p_sim(:,i_p)), max(p_rec(:,i_p)));
     minval = min(min(p_sim(:,i_p)), min(p_rec(:,i_p)));
@@ -106,17 +109,18 @@ for i_p = 1:numel(which_params)
     xlim([minval-eps*rangeval maxval+eps*rangeval])
     ylim([minval-eps*rangeval maxval+eps*rangeval])  
     
-    title(param_names{i_p},'FontSize', min_fontsize+8)
+    %title(param_names{i_p},'FontSize', min_fontsize+8)
 end
 saveas(gcf, fullfile(pplots,'parameter_recovery.fig'))
 saveas(gcf, fullfile(pplots,'parameter_recovery.png'))
 
 %% Remove outliers
-include = ~(isoutlier(p_rec) |isoutlier(p_sim));
-
+% include = ~(isoutlier(p_rec,'quartiles'));
+include = ~(isoutlier(p_rec,'quartiles') | isoutlier(p_sim,'quartiles'));
+warning('There are %d outliers that will be removed.',sum(~include(:)))
 
 % Options
-min_fontsize = 16;
+min_fontsize = 18;
 set(0,'DefaultAxesFontSize',min_fontsize,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
@@ -134,7 +138,7 @@ figure('units', 'normalized', 'outerposition', [0 0 .6 .5], 'Visible', 'on');
 for i_p = 1:numel(which_params)
     
     [r,p] = corr(p_sim(include(:,i_p),i_p), p_rec(include(:,i_p),i_p));
-    [i, LB, UB] = ICC([p_sim(:,i_p) p_rec(:,i_p)], '1-1');
+    [i, LB, UB] = ICC([p_sim(include(:,i_p),i_p) p_rec(include(:,i_p),i_p)], '1-1');
     if p < 0.001
         p_verb = 'p < 0.001';
     else
@@ -142,8 +146,11 @@ for i_p = 1:numel(which_params)
     end
 
     subplot(rows,cols,i_p)
-    scatter(p_sim(include(:,i_p),i_p), p_rec(include(:,i_p),i_p), 40,...
-        'MarkerFaceColor', [.2 .2 .2],...
+%     scatter(p_sim(include(:,i_p),i_p), p_rec(include(:,i_p),i_p), 40,...
+%         'MarkerFaceColor', [.2 .2 .2],...
+%         'MarkerEdgeColor', 'k')
+     scatter(p_sim(include(:,i_p),i_p), p_rec(include(:,i_p),i_p), 40,...
+        'MarkerFaceColor', col,...
         'MarkerEdgeColor', 'k')
     alpha(.5);
     lsline;
@@ -153,8 +160,8 @@ for i_p = 1:numel(which_params)
     text(.05,.9,...
         sprintf('ICC = %.2f\nr = %.2f\n%s',i,r, p_verb),...
         'FontSize', min_fontsize, 'Units', 'normalized');
-    xlabel('ground truth','FontSize', min_fontsize+4);
-    ylabel('recovered','FontSize', min_fontsize+4);
+    xlabel([param_names{i_p} ' (simulated)'],'FontSize', min_fontsize+4);
+    ylabel([param_names{i_p} ' (recovered)'],'FontSize', min_fontsize+4);
     
     maxval = max(p_sim(include(:,i_p),i_p));
     minval = min(p_sim(include(:,i_p),i_p));
@@ -163,9 +170,10 @@ for i_p = 1:numel(which_params)
     
     xlim([minval-eps*rangeval maxval+eps*rangeval])
     ylim([minval-eps*rangeval maxval+eps*rangeval])  
-    
-    title(param_names{i_p},'FontSize', min_fontsize+8)
+    axis('square');
+    %title(param_names{i_p},'FontSize', min_fontsize+8,'FontWeight','normal')
 end
 
 saveas(gcf, fullfile(pplots,'parameter_recovery_outliers_removed.fig'))
 saveas(gcf, fullfile(pplots,'parameter_recovery_outliers_removed.png'))
+saveas(gcf, fullfile(pplots,'parameter_recovery_outliers_removed.svg'))

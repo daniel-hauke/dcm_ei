@@ -55,6 +55,10 @@ if ~isfile(fullfile(root_rec, sprintf('rDCM_%03d_tm%d_fm%d.mat',participant_id,t
         case 4  % full model
     end
     
+    % Fix B's and G's
+    sDCM.M.pC.B{1} = zeros(size(sDCM.M.pC.B{1}));
+    sDCM.M.pC.G = zeros(size(sDCM.M.pC.G));
+    
     rDCM = spm_dcm_erp(sDCM);
     save(fullfile(root_rec, sprintf('rDCM_%03d_tm%d_fm%d.mat',participant_id,true_model_id,fitting_model_id)),'rDCM');
 else

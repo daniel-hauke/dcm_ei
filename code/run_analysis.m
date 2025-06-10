@@ -95,18 +95,6 @@ sim.psave = fullfile(presults,'p300_napls','simulations');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
-% sim.param = {'B_g_ii'};        % Parameter fields to simulate from
-% sim.chan = {'Pz'};                           % Channel to plot the simulations
-% sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
-% sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
-% sim.legend_loc = 'NorthEast';
-% sim.flip_cols = 1;
-% sim.psave = fullfile(presults,'p300_napls','simulations');    % Results folder
-% sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
-% sim_erp(sim);
-
-
-
 sim.param = {'B_g_ii'};        % Parameter fields to simulate from
 sim.chan = {'Pz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
@@ -117,6 +105,25 @@ sim.psave = fullfile(presults,'p300_napls','simulations');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
+sim.param = {'G'};        % Parameter fields to simulate from
+sim.chan = {'Pz'};                           % Channel to plot the simulations
+sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.legend_loc = 'NorthEast';
+sim.flip_cols = 0;
+sim.psave = fullfile(presults,'p300_napls','simulations','G');    % Results folder
+sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
+
+sim.param = {'G'};        % Parameter fields to simulate from
+sim.chan = {'Pz'};                           % Channel to plot the simulations
+sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.legend_loc = 'NorthEast';
+sim.flip_cols = 1;
+sim.psave = fullfile(presults,'p300_napls','simulations','G_col_flipped');    % Results folder
+sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
 
 
 % MMN - single parameter simulation
@@ -134,11 +141,33 @@ sim.param = {'B_g_ii'};        % Parameter fields to simulate from
 sim.flip_cols = 1;
 sim.chan = {'Fz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.vals = linspace(-2,2,9);       % value to be added or percentage change
 sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
 sim.legend_loc = 'SouthEast';
 sim.psave = fullfile(presults,'mmn','simulations');    % Results folder
 sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
+
+sim.param = {'G'};        % Parameter fields to simulate from
+sim.chan = {'Fz'};                           % Channel to plot the simulations
+sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.flip_cols = 0;
+sim.psave = fullfile(presults,'mmn','simulations','G');    % Results folder
+sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
+
+sim.param = {'G'};        % Parameter fields to simulate from
+sim.chan = {'Fz'};                           % Channel to plot the simulations
+sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.flip_cols = 1;
+sim.psave = fullfile(presults,'mmn','simulations','G_col_flipped');    % Results folder
+sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
+
 
 % P50 - single parameter simulation
 sim.param = {'B_g_ee'};        % Parameter fields to simulate from
@@ -161,74 +190,84 @@ sim.psave = fullfile(presults,'p50','simulations');    % Results folder
 sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
-
 sim.param = {'G'};        % Parameter fields to simulate from
 sim.flip_cols = 0;
 sim.chan = {'Cz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
 sim.legend_loc = 'SouthEast';
-sim.psave = fullfile(presults,'p50','simulations');    % Results folder
+sim.psave = fullfile(presults,'p50','simulations','G');    % Results folder
+sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
+
+sim.param = {'G'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.psave = fullfile(presults,'p50','simulations','G_col_flipped');    % Results folder
 sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
 
 
-% Rest
-sim.psave = fullfile(presults,'rest_v3','simulations');    % Results folder
-sim.dcm = fullfile(presults,'rest_v3','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
-
-sim.param = {'B_g_ee'}; % Plot G instead of condition-specific parameter
-sim.flip_cols = 0;
-sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
-sim.sim_title = {'Eyes Closed','Eyes Open'};  
-sim.legend_loc = 'East';
-sim_csd(sim);
-
-sim.param = {'B_g_ii'}; % Plot G instead of condition-specific parameter
-sim.flip_cols = 1;
-sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
-sim.sim_title = {'Eyes Closed','Eyes Open'};  
-sim.legend_loc = 'East';
-sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
-sim_csd(sim);
-
-sim.param = {'G'}; % Plot G instead of condition-specific parameter
-sim.flip_cols = 0;
-sim.legend_fontsize = 12;
-sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
-sim.sim_title = {'eyes closed','eyes open'};  
-sim.legend_loc = 'East';
-sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.vals = linspace(-1,1,9);  
-sim.psave = fullfile(presults,'rest_v3','simulations','G1');    % Results folder
-sim_csd(sim);
-
-sim.param = {'G'}; % Plot G instead of condition-specific parameter
-sim.flip_cols = 1;
-sim.legend_fontsize = 12;
-sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
-sim.vals = linspace(-0.5,0.5,9);  
-%sim.vals = linspace(-1,1,9);  
-sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
-sim.sim_title = {'eyes closed','eyes open'};  
-sim.legend_loc = 'East';
-sim.psave = fullfile(presults,'rest_v3','simulations','G2_cols_flipped');    % Results folder
-sim_csd(sim);
-
-
-
-% ASSR
-sim.param = {'G'}; % Plot G instead of condition-specific parameter
-sim.legend_fontsize = 14;
-sim.source = {'lTHA', 'rTHA', 'lA1', 'rA1', 'lHIP', 'rHIP'};  % Sources to plot the simulations
-sim.legend_loc = 'eastoutside';
-sim.sim_title = {'40 Hz ASSR'}; 
-sim.psave = fullfile(presults,'assr','simulations');    % Results folder
-sim.dcm = fullfile(presults,'assr','dcm','dcm_assr_cmc_ei_v1.mat'); % DCM file
-%sim.dcm = fullfile(presults,'assr','dcm','dcm_assr_cmc_ei_v1_T_32_32_128_32_S_2.mat'); % DCM file
-sim_csd(sim);
+% 
+% % Rest
+% sim.psave = fullfile(presults,'rest_v3','simulations');    % Results folder
+% sim.dcm = fullfile(presults,'rest_v3','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
+% 
+% sim.param = {'B_g_ee'}; % Plot G instead of condition-specific parameter
+% sim.flip_cols = 0;
+% sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+% sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
+% sim.sim_title = {'Eyes Closed','Eyes Open'};  
+% sim.legend_loc = 'East';
+% sim_csd(sim);
+% 
+% sim.param = {'B_g_ii'}; % Plot G instead of condition-specific parameter
+% sim.flip_cols = 1;
+% sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
+% sim.sim_title = {'Eyes Closed','Eyes Open'};  
+% sim.legend_loc = 'East';
+% sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
+% sim_csd(sim);
+% 
+% sim.param = {'G'}; % Plot G instead of condition-specific parameter
+% sim.flip_cols = 0;
+% sim.legend_fontsize = 12;
+% sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
+% sim.sim_title = {'eyes closed','eyes open'};  
+% sim.legend_loc = 'East';
+% sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+% sim.vals = linspace(-1,1,9);  
+% sim.psave = fullfile(presults,'rest_v3','simulations','G1');    % Results folder
+% sim_csd(sim);
+% 
+% sim.param = {'G'}; % Plot G instead of condition-specific parameter
+% sim.flip_cols = 1;
+% sim.legend_fontsize = 12;
+% sim.vals = linspace(-2.5,2.5,9);       % value to be added or percentage change
+% sim.vals = linspace(-0.5,0.5,9);  
+% %sim.vals = linspace(-1,1,9);  
+% sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'};  % Sources to plot the simulations
+% sim.sim_title = {'eyes closed','eyes open'};  
+% sim.legend_loc = 'East';
+% sim.psave = fullfile(presults,'rest_v3','simulations','G2_cols_flipped');    % Results folder
+% sim_csd(sim);
+% 
+% 
+% 
+% % ASSR
+% sim.param = {'G'}; % Plot G instead of condition-specific parameter
+% sim.legend_fontsize = 14;
+% sim.source = {'lTHA', 'rTHA', 'lA1', 'rA1', 'lHIP', 'rHIP'};  % Sources to plot the simulations
+% sim.legend_loc = 'eastoutside';
+% sim.sim_title = {'40 Hz ASSR'}; 
+% sim.psave = fullfile(presults,'assr','simulations');    % Results folder
+% sim.dcm = fullfile(presults,'assr','dcm','dcm_assr_cmc_ei_v1.mat'); % DCM file
+% %sim.dcm = fullfile(presults,'assr','dcm','dcm_assr_cmc_ei_v1_T_32_32_128_32_S_2.mat'); % DCM file
+% sim_csd(sim);
 
 
 
@@ -249,12 +288,12 @@ sim.sim_title = {'Standard', 'Target'};
 sim.chan = {'Pz'}; 
 sim.time_window = {[250 600]};
 sim.aggr = {'max'}; % Aggregation function
-sim.cb_title = {'P300', 'P300', 'P300'};
+sim.cb_title = {'P3', 'P3', 'P3'};
 
 sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
-sim.ylabel = 'B-g_{ii}';
-sim.xlabel = 'B-g_{ee}';
+sim.ylabel = 'B^{g_{ii}}';
+sim.xlabel = 'B^{g_{ee}}';
 sim.idx = {[1] [1]};
 sim_erp_grid(sim);
 
@@ -275,28 +314,28 @@ sim_erp_grid(sim);
 sim.param = {'T','B_g_ii'};
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};     
 sim.ylabel = '\tau_{ii}';
-sim.xlabel = 'B-g_{ii}';
+sim.xlabel = 'B^{g_{ii}}';
 sim.idx = {[3],[1]}; 
 sim_erp_grid(sim);
 
 sim.param = {'G','B_g_ii'}; 
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};  
 sim.ylabel = 'g_{ii}';
-sim.xlabel = 'B-g_{ii}';
+sim.xlabel = 'B^{g_{ii}}';
 sim.idx = {[2],[1]}; 
 sim_erp_grid(sim);
 
 sim.param = {'G','B_g_ee'};        % Parameter fields to simulate from
 sim.vals = {linspace(-.5,0.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
 sim.ylabel = 'g_{ee}';
-sim.xlabel = 'B-g_{ee}';
+sim.xlabel = 'B^{g_{ee}}';
 sim.idx = {[1] [1]};
 sim_erp_grid(sim);
 
 sim.param = {'T','B_g_ee'};
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};     
 sim.ylabel = '\tau_{sp}';
-sim.xlabel = 'B-g_{ee}';
+sim.xlabel = 'B^{g_{ee}}';
 sim.idx = {[2],[1]}; 
 sim_erp_grid(sim);
 
@@ -313,8 +352,8 @@ sim.cb_title = {'N2','N2','MMN'};
 
 sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
-sim.ylabel = 'B-g_{ii}';
-sim.xlabel = 'B-g_{ee}';
+sim.ylabel = 'B^{g_{ii}}';
+sim.xlabel = 'B^{g_{ee}}';
 sim.idx = {[1] [1]};
 sim_erp_grid(sim);
 
@@ -330,45 +369,45 @@ sim.cb_title = {'P2','P2','P2'};
 
 sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
-sim.ylabel = 'B-g_{ii}';
-sim.xlabel = 'B-g_{ee}';
+sim.ylabel = 'B^{g_{ii}}';
+sim.xlabel = 'B^{g_{ee}}';
 sim.idx = {[1] [1]};
 sim_erp_grid(sim);
 
-
-% Rest
-sim.psave = fullfile(presults,'rest','simulations');    % Results folder
-sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
-sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'}; 
-sim.sim_title = {'Eyes Closed','Eyes Open'};   
-alpha = [8 14];
-sim.freq_band = {alpha};
-sim.aggr = {'mean'};
-sim.tic_fontsize = 18;
-sim.cb_title = {'\alpha','\alpha' ,'\alpha'};
-
-sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
-sim.vals = {linspace(-2.5,2.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
-sim.idx ={[1] [1]};
-sim.xlabel = 'B-g_{ee}';
-sim.ylabel = 'B-g_{ii}';
-sim_csd_grid(sim);
-
-sim.param = {'G','G'}; 
-sim.vals = {linspace(-2.5,2.5,9),linspace(-0.5,0.5,9)};
-sim.ylabel = 'g_{ii}';
-sim.xlabel = 'g_{ee}';
-sim.idx = {[2],[1]}; 
-sim_csd_grid(sim);
-
-sim.param = {'B_g_ii','T'}; 
-sim.xlabel = 'g_{ii}';
-sim.ylabel = '\tau_{ii}';
-sim.idx = {[1],[3]}; 
-sim_csd_grid(sim);
-
-sim.param = {'B_g_ii','G'}; 
-sim.xlabel = 'B-g_{ii}';
-sim.ylabel = 'g_{ii}';
-sim.idx = {[1],[2]}; 
-sim_csd_grid(sim);
+% 
+% % Rest
+% sim.psave = fullfile(presults,'rest','simulations');    % Results folder
+% sim.dcm = fullfile(presults,'rest','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file
+% sim.source =  {'lPC', 'rPC', 'lFC', 'rFC'}; 
+% sim.sim_title = {'Eyes Closed','Eyes Open'};   
+% alpha = [8 14];
+% sim.freq_band = {alpha};
+% sim.aggr = {'mean'};
+% sim.tic_fontsize = 18;
+% sim.cb_title = {'\alpha','\alpha' ,'\alpha'};
+% 
+% sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
+% sim.vals = {linspace(-2.5,2.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change
+% sim.idx ={[1] [1]};
+% sim.ylabel = 'B^{g_{ii}}';
+% sim.xlabel = 'B^{g_{ee}}';
+% sim_csd_grid(sim);
+% 
+% sim.param = {'G','G'}; 
+% sim.vals = {linspace(-2.5,2.5,9),linspace(-0.5,0.5,9)};
+% sim.ylabel = 'g_{ii}';
+% sim.xlabel = 'g_{ee}';
+% sim.idx = {[2],[1]}; 
+% sim_csd_grid(sim);
+% 
+% sim.param = {'B_g_ii','T'}; 
+% sim.xlabel = 'g_{ii}';
+% sim.ylabel = '\tau_{ii}';
+% sim.idx = {[1],[3]}; 
+% sim_csd_grid(sim);
+% 
+% sim.param = {'B_g_ii','G'}; 
+% sim.xlabel = 'B-g_{ii}';
+% sim.ylabel = 'g_{ii}';
+% sim.idx = {[1],[2]}; 
+% sim_csd_grid(sim);
