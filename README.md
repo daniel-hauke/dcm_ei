@@ -15,7 +15,7 @@ TAPAS:
 - Frässle et al. (2021). **TAPAS: An Open-Source Software Package for Translational Neuromodeling and Computational Psychiatry**. *Frontiers in Psychiatry*. https://doi.org/10.3389/fpsyt.2021.680811
 
 TAPAS euler integrator code:
-- Schöbi  et al (2021). **A fast and robust integrator of delay differential equations in DCM for electrophysiological data. *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2021.118567
+- Schöbi  et al (2021). **A fast and robust integrator of delay differential equations in DCM for electrophysiological data**. *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2021.118567
 
 Important Information
 ---------------
