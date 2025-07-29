@@ -11,6 +11,7 @@ files = fullfile({temp.folder}',{temp.name}');
 
 % Initialise variables
 cor = NaN(numel(files),2);
+p = NaN(numel(files),2);
 R2 = NaN(numel(files),2);
 
 for f = 1:numel(files)
@@ -31,7 +32,7 @@ for f = 1:numel(files)
         R2(f,c) = 1-(MSE/SS);
         
         % Compute correlation
-        cor(f,c) = corr(y(:),yhat(:),'type','Pearson');
+        [cor(f,c) p(f,c)] = corr(y(:),yhat(:),'type','Pearson');
     end
 end
 
@@ -64,5 +65,5 @@ text(1, 1.05, sprintf('r=%.2f',mean(cor(:,1))),'HorizontalAlignment', 'center');
 text(2, 1.05, sprintf('r=%.2f',mean(cor(:,2))),'HorizontalAlignment', 'center');
 
 
-fprintf('Mean R2=%d%% and mean r=%.2f\n', round(mean(mean(R2))*100), mean(cor(:)))
+fprintf('Mean R2=%d%% and mean r=%.2f', round(mean(mean(R2))*100), mean(cor(:)))
 

@@ -141,7 +141,7 @@ sim.param = {'B_g_ii'};        % Parameter fields to simulate from
 sim.flip_cols = 1;
 sim.chan = {'Fz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.vals = linspace(-2,2,9);       % value to be added or percentage change
+%sim.vals = linspace(-2,2,9);       % value to be added or percentage change
 sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
 sim.legend_loc = 'SouthEast';
 sim.psave = fullfile(presults,'mmn','simulations');    % Results folder
@@ -348,7 +348,7 @@ sim.chan = {'Fz'};
 sim.sim_title = {'Standard', 'Deviant'};   
 sim.time_window = {[150 250]};
 sim.aggr = {'min'};
-sim.cb_title = {'N2','N2','MMN'};
+sim.cb_title = {'MMN','MMN','MMN'};
 
 sim.param = {'B_g_ii','B_g_ee'};        % Parameter fields to simulate from
 sim.vals = {linspace(-0.5,0.5,9),linspace(-0.5,0.5,9)};       % value to be added or percentage change

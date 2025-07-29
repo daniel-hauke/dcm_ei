@@ -49,8 +49,7 @@ for c =  1:n_cond
     SS(c)  = sum(sum(y{c}.^2));
     R2(c) = 1-(MSE(c)/SS(c));
         
-    cor(c) = corr(y{c}(:),yhat{c}(:),'type','Pearson');
-    
+    [cor(c), p(c)] = corr(y{c}(:),yhat{c}(:),'type','Pearson');
 end
 
 
@@ -78,8 +77,8 @@ for c = 1:n_cond
     end
 end
 
-fprintf('Correlation condition 1: r=%.2f\n',cor(1));
-fprintf('Correlation condition 2: r=%.2f\n',cor(2));
+fprintf('Correlation condition 1: r=%.2f, p=%.3f\n',cor(1),p(1));
+fprintf('Correlation condition 2: r=%.2f, p=%.3f\n',cor(2),p(2));
 fprintf('Correlation total: r=%.2f\n\n',mean(cor));
 
 fprintf('Variance explained condition 1: R^2=%d%%\n',round(R2(1)*100));
