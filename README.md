@@ -51,7 +51,7 @@ Members of the project
 - Supervision: Rick Adams, Daniel J. Hauke
 - Sponsor: Rick Adams
 - Contributions: Julia Rodriguez-Sanchez, Hope Oloye
-- Tester for Repdorucible Research: Tbd
+- Tester for Reproducible Research: Tbd
 
 
 
