@@ -1,4 +1,4 @@
-A new DCM to assess changes in E/I balance
+A Canonical Microcircuit for Estimating E/I Balance
 ===============
 This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
 
