@@ -9,6 +9,7 @@ if ~isfield(opt, 'visibility'); opt.visibility = 'on'; end
 if isfield(opt, 'truth'); plot_truth = 1; else; plot_truth = 0; end
 if ~isfield(opt, 'subplot_titles'); opt.subplot_titles = []; end
 if ~isfield(opt, 'plot_diff'); opt.plot_diff = 0; end
+if ~isfield(opt, 'flip_diff'); opt.flip_diff = 0; end
 
 try ep_row = find(opt.vals{1}==0); catch ep_row = []; end
 try ep_col = find(opt.vals{2}==0); catch ep_col = []; end
@@ -17,15 +18,18 @@ aggr = str2func(aggr);
 
 %% Get Difference between conditions
 if opt.plot_diff
-    n_conds = numel(sDCM{1}.xY.y)+1;
-    for i = 1:size(sDCM,1)
-        for j = 1:size(sDCM,2)
-            sDCM{i,j}.xY.y{n_conds} = sDCM{i,j}.xY.y{2}-sDCM{i,j}.xY.y{1};
-        end
-    end
-    opt.sim_title = [opt.sim_title [opt.sim_title{2} '-' opt.sim_title{1}]];
+     n_conds = numel(sDCM{1}.xY.y)+1;
+     for i = 1:numel(sDCM) 
+         if opt.flip_diff
+             sDCM{i}.xY.y{n_conds} = sDCM{i}.xY.y{1}-sDCM{i}.xY.y{2};
+             opt.sim_title = [opt.sim_title [opt.sim_title{1} '-' opt.sim_title{2}]];
+         else
+             sDCM{i}.xY.y{n_conds} = sDCM{i}.xY.y{2}-sDCM{i}.xY.y{1};
+             opt.sim_title = [opt.sim_title [opt.sim_title{2} '-' opt.sim_title{1}]];
+         end
+     end
 else
-    n_conds = numel(sDCM{1,1}.xY.y);
+    n_conds = numel(sDCM{1}.xY.y); 
 end
 
 

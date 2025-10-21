@@ -37,7 +37,7 @@ for i = 1:numel(files)
             cond_labels = {'Standard','Target','Target-Standard'};
         case 'p50'
             chan_id = find(strcmp(DCM.xY.name,'Cz'));
-            cond_labels = {'S1','S2','S2-S1'};
+            cond_labels = {'S1','S2','S1-S2'};
     end
 
     %% Setup
@@ -65,8 +65,14 @@ for i = 1:numel(files)
 
         % Compute observed and predicted responses
         if is_diff
-            y_obs = (DCM.H{2} + DCM.R{2})*U - (DCM.H{1} + DCM.R{1})*U;
-            y_pred = DCM.H{2}*U - DCM.H{1}*U;
+            switch task{1}
+                case 'p50' % for P50 we compute Cond 1 - Cond 2, not the other way around
+                    y_obs = (DCM.H{1} + DCM.R{1})*U - (DCM.H{2} + DCM.R{2})*U;
+                    y_pred = DCM.H{1}*U - DCM.H{2}*U;
+                otherwise % for all other tasks we compute deviant/target - standard
+                    y_obs = (DCM.H{2} + DCM.R{2})*U - (DCM.H{1} + DCM.R{1})*U;
+                    y_pred = DCM.H{2}*U - DCM.H{1}*U;
+            end
         else
             y_obs = (DCM.H{c} + DCM.R{c})*U;
             y_pred = DCM.H{c}*U;
