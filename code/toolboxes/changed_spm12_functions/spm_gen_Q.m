@@ -76,19 +76,19 @@ for i = 1:length(X)
     % DH added: Intrinsic connections in E/I convolution-based cmc model
     %----------------------------------------------------------------------
     if isfield(Q,'B_g_ee')
-        Q.G(:,1) = Q.G(:,1) + X(i)*P.B_g_ee(i);
+        Q.G(:,1) = Q.G(:,1) + X(i)*P.B_g_ee(:,i);
     end
     if isfield(Q,'B_g_ii')
-        Q.G(:,2) = Q.G(:,2) + X(i)*P.B_g_ii(i);
+        Q.G(:,2) = Q.G(:,2) + X(i)*P.B_g_ii(:,i);
     end
     if isfield(Q,'B_g_ei')
-        Q.G(:,3) = Q.G(:,3) + X(i)*P.B_g_ei(i);
+        Q.G(:,3) = Q.G(:,3) + X(i)*P.B_g_ei(:,i);
     end
     if isfield(Q,'B_g_ie')
-        Q.G(:,4) = Q.G(:,4) + X(i)*P.B_g_ie(i);
+        Q.G(:,4) = Q.G(:,4) + X(i)*P.B_g_ie(:,i);
     end
     if isfield(Q,'B_g_se')
-        Q.G(:,5) = Q.G(:,5) + X(i)*P.B_g_se(i);
+        Q.G(:,5) = Q.G(:,5) + X(i)*P.B_g_se(:,i);
     end
     
     

@@ -208,6 +208,11 @@ if opt.run_dcm
     DCM.M.pC.B_g_ei = 0;
     DCM.M.pC.B_g_ie = 0;
     DCM.M.pC.B_g_se = 0; 
+%     
+%     DCM.M.pC.B_g_ii = [1/8 1/8 1/8 1/8 1/8 1/8]';
+%     DCM.M.pE.B_g_ii = [0 0 0 0 0 0]';
+%     DCM.M.pC.B_g_ee = [1/8 1/8 1/8 1/8 1/8 1/8]';
+%     DCM.M.pE.B_g_ee = [0 0 0 0 0 0]';
     
     % Interpretation of G's: [g_ee g_ii g_ei g_ie g_se]
     DCM.M.pC.G(3) = 0; 
