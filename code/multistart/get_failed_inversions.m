@@ -7,7 +7,8 @@ presults = 'F:\dcm_ei\results\rest\multistart';
 presults = 'F:\dcm_ei\results\assr\multistart';
 %presults = 'F:\dcm_ei\results\p300\multistart';
 presults = 'F:\dcm_ei\results\p50\multistart';
-presults = 'F:\dcm_ei\results\rest_v2';
+presults = 'E:\dcm_ei\results\rest_v2';
+presults = 'D:\BSNIP\dcm_ei\results\rest_v3\multistart';
 
 pdcms = fullfile(presults,'dcms');
 perrorfiles = fullfile(presults,'errorfiles');
@@ -36,8 +37,12 @@ if overwrite_old_check
       errorfile = fullfile(perrorfiles,['*.' num2str(vbsv)]);
       s = dir(errorfile);
       if length(s)>1
-          [~, old] = min([s.datenum]);
-          delete(fullfile(s(old).folder,s(old).name));
+          dates = [s.datenum];
+          for i = 1:numel(dates)
+              if dates(i) ~= max(dates)
+                  delete(fullfile(s(i).folder,s(i).name));
+              end
+          end
       end
   end
 end

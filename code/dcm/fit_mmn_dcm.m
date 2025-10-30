@@ -181,7 +181,7 @@ if opt.run_dcm
     DCM.B{1}(4,6) = 1;
     
     % Local Gains
-    DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
+    %DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
     
     % Input
     DCM.C = [1; 1; 0; 0; 0; 0];

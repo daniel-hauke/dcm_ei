@@ -1,4 +1,4 @@
-A new DCM to assess changes in E/I balance
+A Canonical Microcircuit for Estimating E/I Balance
 ===============
 This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
 
@@ -15,7 +15,7 @@ TAPAS:
 - Frässle et al. (2021). **TAPAS: An Open-Source Software Package for Translational Neuromodeling and Computational Psychiatry**. *Frontiers in Psychiatry*. https://doi.org/10.3389/fpsyt.2021.680811
 
 TAPAS euler integrator code:
-- Schöbi  et al (2021). **A fast and robust integrator of delay differential equations in DCM for electrophysiological data. *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2021.118567
+- Schöbi  et al (2021). **A fast and robust integrator of delay differential equations in DCM for electrophysiological data**. *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2021.118567
 
 Important Information
 ---------------
@@ -51,7 +51,7 @@ Members of the project
 - Supervision: Rick Adams, Daniel J. Hauke
 - Sponsor: Rick Adams
 - Contributions: Julia Rodriguez-Sanchez, Hope Oloye
-- Tester for Repdorucible Research: Tbd
+- Tester for Reproducible Research: Tbd
 
 
 

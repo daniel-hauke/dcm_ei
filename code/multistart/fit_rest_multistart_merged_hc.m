@@ -5,22 +5,22 @@ function fit_rest_multistart(vbsv,rerun)
 switch uid(1: end-1)
     
     % Daniel's PC
-    case 'dell-cvmyz84\daniel'
+    case 'laptop-0jhjt7kf\danie'
         pvbsv = 'C:\projects\dcm_ei\results\multistart\vbsvs_tau_s_4_sources_csd';
-        frerun = 'C:\projects\dcm_ei\results\rest_v3\multistart\vbsvs_to_rerun.mat';
-        presults = 'C:\projects\dcm_ei\results\rest_v3\multistart\dcms';
-        pdata =  'E:\BSNIP\rest\results\rsEEG_preprocessed_final_files_60_chan_v3\merged_eo_ec\0050_prep_merged_eo_ec.mat';
+        frerun = 'C:\projects\dcm_ei\results\rest\multistart\vbsvs_to_rerun.mat';
+        presults = 'C:\projects\dcm_ei\results\rest\multistart\dcms';
+        pdata =  'F:\BSNIP\rest\results\rest_grandmean\HC_all_subjects_merged.mat';
         pcode = 'C:\projects\dcm_ei\code';
-        pgmfile = 'D:\BSNIP\rest\results\rest_grandmean_v3\HC_csd.mat';
+        pgmfile = 'C:\projects\dcm_ei\results\rest\gmDCM_rest.mat';
         
         % Cluster
     otherwise
         pvbsv = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/multistart/vbsvs_tau_s_4_sources_csd';
-        frerun =  '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v3/multistart/vbsvs_to_rerun.mat';
-        presults = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v3/multistart/dcms';
-        pdata = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/data/rest/0050_prep_merged_eo_ec.mat';
+        frerun =  '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v2/multistart/vbsvs_to_rerun.mat';
+        presults = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/results/rest_v2/multistart/dcms';
+        pdata = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/data/rest/HC_all_subjects_merged.mat';
         pcode = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code';
-        pgmfile = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code/utils/HC_csd.mat';
+        pgmfile = '/SAN/intelsys/Psycho_Pheno2/dcm_ei/code/utils/gmDCM_rest.mat';
 end
 
 %% Options
@@ -183,10 +183,9 @@ DCM.M.pC.G(5) = 0;
 
 %% Load grandmean data instead
 if use_gm
-    DCM.options.DATA = 0;
-    load(pgmfile);
-    DCM.xY = xY;
-    DCM.M.U = xY.U;
+    gmDCM = load(pgmfile);
+    DCM = gmDCM.DCM;
+    DCM.M.nograph = 1;
 end
 
 

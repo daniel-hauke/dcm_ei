@@ -179,7 +179,7 @@ if opt.run_dcm
     DCM.B{1}(4,6) = 1;
     
     % Local Gains
-    DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
+    %DCM.B{1} = DCM.B{1} + eye(size(DCM.A{1})); 
     
     % Input
     DCM.C = [1; 1; 0; 0; 0; 0];
@@ -212,8 +212,13 @@ if opt.run_dcm
     DCM.M.pC.G(4) = 0; 
     DCM.M.pC.G(5) = 0;
           
-    % Fix Tau and S to values selected by multistart
-    DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
+%     % Fix Tau and S to values selected by multistart
+%     % Bsnip priors
+%     DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
+%     DCM.M.pE.S = -1;
+    
+    % NAPLS priors
+    DCM.M.pE.T = [log(16/2) log(128/2) log(2/16) log(2/28)];
     DCM.M.pE.S = -1;
     
     % Use bayesian parameter averages as starting values

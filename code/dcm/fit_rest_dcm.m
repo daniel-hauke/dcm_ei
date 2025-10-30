@@ -50,6 +50,8 @@ opt.pplots = fullfile(opt.presults,'plots');
 
 
 %% Get subject ID
+cd(opt.pdata);
+
 % Start log
 fname_log = fullfile(opt.pdcms,'dcm_rest_cmc_ei');
 diary(fname_log);   
@@ -188,9 +190,14 @@ if opt.run_dcm
     DCM.M.pC.G(4) = 0; 
     DCM.M.pC.G(5) = 0;
     
+%     % Fix Tau and S to values selected by multistart
+%     DCM.M.pE.T = [log(32/2) log(64/2) log(2/16) log(32/28)];
+%     DCM.M.pE.S = 0;
+    
     % Fix Tau and S to values selected by multistart
-    DCM.M.pE.T = [log(32/2) log(64/2) log(2/16) log(32/28)];
+    DCM.M.pE.T = [log(32/2) log(128/2) log(2/16) log(32/28)];
     DCM.M.pE.S = 0;
+    
     
     
     % Use bayesian parameter averages as starting values

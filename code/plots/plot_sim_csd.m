@@ -78,22 +78,22 @@ for c = 1:n_conds
     if theta(2)>= min(sDCM{1}.Hz)
         xline(theta(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(theta(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(theta(1)+(theta(2)-theta(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),'\theta','FontSize',text_fontsize, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(theta(1)+(theta(2)-theta(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),char(952),'FontSize',text_fontsize, 'Fontweight','normal','HorizontalAlignment', 'center')
     end
     if alpha(2)>= min(sDCM{1}.Hz)
         xline(alpha(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(alpha(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(alpha(1)+(alpha(2)-alpha(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),'\alpha','FontSize',text_fontsize, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(alpha(1)+(alpha(2)-alpha(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),char(945),'FontSize',text_fontsize, 'Fontweight','normal','HorizontalAlignment', 'center')
     end
     if beta(2)>= min(sDCM{1}.Hz)
         xline(beta(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(beta(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(beta(1)+(beta(2)-beta(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),'\beta','FontSize',text_fontsize, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(beta(1)+(beta(2)-beta(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),char(946),'FontSize',text_fontsize, 'Fontweight','normal','HorizontalAlignment', 'center')
     end
     if gamma(2)>= min(sDCM{1}.Hz)
         xline(gamma(1),'--','HandleVisibility','off', 'LineWidth',1);
         xline(gamma(2),'--','HandleVisibility','off', 'LineWidth',1);
-        text(gamma(1)+(gamma(2)-gamma(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),'\gamma','FontSize',text_fontsize, 'Fontweight','bold','HorizontalAlignment', 'center')
+        text(gamma(1)+(gamma(2)-gamma(1))/2,max(y_sim(:))+0.05*range(y_sim(:)),char(947),'FontSize',text_fontsize, 'Fontweight','normal','HorizontalAlignment', 'center')
     end
 end
 
