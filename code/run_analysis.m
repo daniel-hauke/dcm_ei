@@ -13,8 +13,12 @@ setup_paths;
 switch uid(1: end-1)
     
     % Daniel's PC
-    case {'laptop-0jhjt7kf\danie', 'dell-cvmyz84\daniel'}
+    case {'laptop-0jhjt7kf\danie', 'dell-cvmyz84\daniel','desktop-15ldi1r\pc'}
         presults = 'C:\projects\dcm_ei\results';
+%         presults = 'C:\projects\dcm_ei\results_g11_1000';
+%         presults = 'C:\projects\dcm_ei\results_g11_1600';
+%         presults = 'C:\projects\dcm_ei\results_g11_1200';
+%         presults = 'C:\projects\dcm_ei\results_g3_1000';
         pdata = 'C:\projects\dcm_ei\data';
         pcode = 'C:\projects\dcm_ei\code';    
 
@@ -91,6 +95,7 @@ sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for p
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.legend_loc = 'NorthEast';
 sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'p300_napls','simulations');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
@@ -100,7 +105,8 @@ sim.chan = {'Pz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
 sim.legend_loc = 'NorthEast';
-sim.flip_cols = 1;
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'p300_napls','simulations');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
@@ -111,17 +117,8 @@ sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for p
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.legend_loc = 'NorthEast';
 sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'p300_napls','simulations','G');    % Results folder
-sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
-sim_erp(sim);
-
-sim.param = {'G'};        % Parameter fields to simulate from
-sim.chan = {'Pz'};                           % Channel to plot the simulations
-sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
-sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.legend_loc = 'NorthEast';
-sim.flip_cols = 1;
-sim.psave = fullfile(presults,'p300_napls','simulations','G_col_flipped');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
@@ -133,6 +130,7 @@ sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for 
 sim.legend_loc = 'SouthEast';
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'mmn','simulations');    % Results folder
 sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
@@ -144,6 +142,8 @@ sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 %sim.vals = linspace(-2,2,9);       % value to be added or percentage change
 sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
 sim.legend_loc = 'SouthEast';
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'mmn','simulations');    % Results folder
 sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
@@ -154,17 +154,8 @@ sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for 
 sim.legend_loc = 'SouthEast';
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.flip_cols = 0;
+sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'mmn','simulations','G');    % Results folder
-sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
-sim_erp(sim);
-
-sim.param = {'G'};        % Parameter fields to simulate from
-sim.chan = {'Fz'};                           % Channel to plot the simulations
-sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
-sim.legend_loc = 'SouthEast';
-sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.flip_cols = 1;
-sim.psave = fullfile(presults,'mmn','simulations','G_col_flipped');    % Results folder
 sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
@@ -175,6 +166,7 @@ sim.flip_cols = 0;
 sim.chan = {'Cz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
 sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
 sim.legend_loc = 'SouthEast';
 sim.psave = fullfile(presults,'p50','simulations');    % Results folder
@@ -186,20 +178,10 @@ sim.flip_cols = 1;
 sim.chan = {'Cz'};                           % Channel to plot the simulations
 sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
 sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
 sim.legend_loc = 'SouthEast';
 sim.psave = fullfile(presults,'p50','simulations');    % Results folder
-sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
-sim_erp(sim);
-
-sim.param = {'G'};        % Parameter fields to simulate from
-sim.flip_cols = 0;
-sim.chan = {'Cz'};                           % Channel to plot the simulations
-sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
-sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
-sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
-sim.legend_loc = 'SouthEast';
-sim.psave = fullfile(presults,'p50','simulations','G');    % Results folder
 sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
@@ -210,7 +192,7 @@ sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
 sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
 sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
 sim.legend_loc = 'SouthEast';
-sim.psave = fullfile(presults,'p50','simulations','G_col_flipped');    % Results folder
+sim.psave = fullfile(presults,'p50','simulations','G');    % Results folder
 sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
