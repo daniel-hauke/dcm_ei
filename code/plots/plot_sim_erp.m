@@ -65,9 +65,17 @@ end
 
 % Some figure settings
 scrsz = get(0,'screenSize');
+
 %fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),.9*scrsz(3),0.5*scrsz(4)],'Visible', opt.visibility);
-fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),1.1*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
+%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),1.15*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
+%fh = figure('OuterPosition',[0.05*scrsz(3),0.05*scrsz(4),1.2*scrsz(3),0.6*scrsz(4)],'Visible', opt.visibility);
+fh = figure;
+set(gcf, 'Units', 'inches');
+set(gcf, 'Position', [1 1 3.66*5 1.15*5]);
+set(gcf, 'PaperUnits', 'inches');
+set(gcf, 'PaperPosition', [1 1 3.66*5 1.15*5]);
 set(0,'DefaultAxesFontSize',22,'defaultLegendInterpreter','none')
+set(0,'DefaultAxesFontSize',24,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
 
@@ -80,7 +88,7 @@ for c = 1:n_conds
     for i = 1:numel(sDCM)
         p{i} = plot(t_DCM,y_sim(:,i,c),'Color',colors_sim(i,:),'LineWidth',opt.linewidth);
     end
-    if c==1 && isfield(opt, 'legend_sim'); l{2,c}=legend(opt.legend_sim,'Location',opt.legend_loc); l{2,c}.FontSize = opt.legend_fontsize; end
+    %if c==1 && isfield(opt, 'legend_sim'); l{2,c}=legend(opt.legend_sim,'Location',opt.legend_loc); l{2,c}.FontSize = opt.legend_fontsize; end
     %if c==1 && isfield(opt, 'legend_sim_title'); title(l{2,c},opt.legend_sim_title); end
     if isfield(opt, 'sim_title'); title(opt.sim_title{c},'FontWeight','normal'); end
     xlabel('Time [ms]');

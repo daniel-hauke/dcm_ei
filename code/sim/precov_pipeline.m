@@ -2,11 +2,12 @@
 
 
 
-%% Fit model to 50 randomly selected healthy participants (on cluster)
+%% Fit model to 100 randomly selected healthy participants (on cluster)
 % Use submit_fit_p50_precov.sh, submit_fit_mmn_precov.sh and
 % submit_fit_p300_precov.sh to submit cluster job.
 % These bash scripts will run the precov_fit_p50.m,  precov_fit_mmn.m or
 %  precov_fit_p300.m script for each participant.
+
 
 %% Plot Model Fit of individual DCMs
 % P50

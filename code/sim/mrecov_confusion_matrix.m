@@ -25,7 +25,7 @@ end
 C_pxp = NaN(num_fitting_models, num_true_models);
 C_xp = NaN(num_fitting_models, num_true_models);
 for t = 1:num_true_models
-    [alpha,exp_r,xp,pxp,bor] = spm_BMS (F(:,:,t));
+    [alpha,exp_r,xp,pxp,bor] = spm_BMS(F(:,:,t));
     C_pxp(t,:) = pxp;
     C_xp(t,:) = xp;
 end
