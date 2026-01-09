@@ -11,12 +11,12 @@ end
 
 
 %% Plot
-min_fontsize = 12;
-set(0,'DefaultAxesFontSize',min_fontsize,'defaultLegendInterpreter','none')
+axes_label_font_size = 13;
+set(0,'DefaultAxesFontSize',11,'defaultLegendInterpreter','none')
 set(0,'DefaultAxesFontName','Aptos')
 set(0,'DefaultAxesFontWeight','normal')
 
-fh = figure('Position',  [100, 100, 540, 500], 'Visible', visibility);
+fh = figure('Position',  [100, 100, 450, 400], 'Visible', visibility);
 imagesc(C)
 colormap(flipud(gray))
 colorbar
@@ -27,6 +27,5 @@ yticks(1:length(model_names))
 xticklabels(model_names)
 yticklabels(model_names)
 add_values_to_imagesc2(C)
-set(findall(gcf,'-property','FontSize'),'FontSize',min_fontsize)
-ylabel('True model','FontSize',min_fontsize+4)
-xlabel('Inferred model','FontSize',min_fontsize+4)
+ylabel('Generating Model','FontSize',axes_label_font_size)
+xlabel('Inferred Model','FontSize',axes_label_font_size)
