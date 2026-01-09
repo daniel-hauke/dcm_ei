@@ -87,17 +87,19 @@ mcomp_sim_data(pdcms, pdata, presults, noise);
 
 
 %% Plot Compute confusion matrix
-% MMN
-pdcms = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\mmn\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
+model_names = {'EI', 'CMC'};
 
 % P50
-pdcms = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\p50\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
+pdcms = 'C:\projects\dcm_ei\results\p50\model_comparison\estimated';
+pplots = 'C:\projects\dcm_ei\results\p50\plots';
+mcomp_confusion_matrix(pdcms,pplots,model_names)
+
+% MMN
+pdcms = 'C:\projects\dcm_ei\results\mmn\model_comparison\estimated';
+pplots = 'C:\projects\dcm_ei\results\mmn\plots';
+mcomp_confusion_matrix(pdcms,pplots,model_names)
 
 % P300
-pdcms = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated';
-pplots = 'C:\projects\dcm_ei\results\p300_napls\model_recovery\estimated\plots';
-mrecov_confusion_matrix(pdcms,pplots)
+pdcms = 'C:\projects\dcm_ei\results\p300_napls\model_comparison\estimated';
+pplots = 'C:\projects\dcm_ei\results\p300_napls\plots';
+mcomp_confusion_matrix(pdcms,pplots,model_names)
