@@ -92,3 +92,25 @@ presults = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmea
 pplots = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery_hc_grandmean\estimated\plots';
 col = [43, 140, 190]/256;
 precov_plot_results(presults, pplots, which_params, param_names, col)
+
+
+
+%% Collect values in table
+
+%% Collect posterior in table
+% P50
+pdcms = 'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms';
+presults = 'C:\projects\dcm_ei\results\p50\plots\Table_S4_parameter_summary_statistics_paired-click_paradigm.csv';
+T = write_param_sum_stats_table(pdcms, presults);
+
+% MMN
+pdcms = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\dcms';
+presults = 'C:\projects\dcm_ei\results\mmn\plots\Table_S5_parameter_summary_statistics_passive_oddball_paradigm.csv';
+write_param_sum_stats_table(pdcms, presults);
+
+% P300
+pdcms = 'C:\projects\dcm_ei\results\p300_napls\parameter_recovery\dcms';
+presults = 'C:\projects\dcm_ei\results\p300_napls\plots\Table_S6_parameter_summary_statistics_active_oddball_paradigm.csv';
+write_param_sum_stats_table(pdcms, presults);
+
+

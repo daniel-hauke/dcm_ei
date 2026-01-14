@@ -18,7 +18,7 @@ switch uid(1: end-1)
 %         presults = 'C:\projects\dcm_ei\results_g11_1000';
 %         presults = 'C:\projects\dcm_ei\results_g11_1600';
 %         presults = 'C:\projects\dcm_ei\results_g11_1200';
-%         presults = 'C:\projects\dcm_ei\results_g3_1000';
+%        presults = 'C:\projects\dcm_ei\results_g3_1000';
         pdata = 'C:\projects\dcm_ei\data';
         pcode = 'C:\projects\dcm_ei\code';    
 
@@ -71,6 +71,23 @@ data_file_name = 'E:\BSNIP\rest\results\rsEEG_preprocessed_final_files_60_chan_v
 opt.fgm = 'D:\BSNIP\dcm_ei\data\rest\HC_csd.mat';
 results_folder = fullfile(presults,'rest_v3');
 fit_rest_dcm(data_file_name,results_folder,opt);
+
+
+%% Collect posterior in table
+% P50
+pgmdcm = 'C:\projects\dcm_ei\results\p50\dcm\dcm_p50_cmc_ei_v1.mat';
+presults = 'C:\projects\dcm_ei\results\p50\plots\Table_S1_grandmean_parameter_posterior_paired-click_paradigm.csv';
+write_param_posterior_table(pgmdcm, presults);
+
+% MMN
+pgmdcm = 'C:\projects\dcm_ei\results\mmn\dcm\dcm_mmn_cmc_ei_v1.mat';
+presults = 'C:\projects\dcm_ei\results\mmn\plots\Table_S2_grandmean_parameter_posterior_passive_oddball_paradigm.csv';
+write_param_posterior_table(pgmdcm, presults);
+
+% P300
+pgmdcm = 'C:\projects\dcm_ei\results\p300_napls\dcm\dcm_p300_cmc_ei_v1.mat';
+presults = 'C:\projects\dcm_ei\results\p300_napls\plots\Table_S3_grandmean_parameter_posterior_active_oddball_paradigm.csv';
+write_param_posterior_table(pgmdcm, presults);
 
 
 %% Simulate from model

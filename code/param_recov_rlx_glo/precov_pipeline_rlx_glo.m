@@ -73,7 +73,7 @@ precov_sim_data_rlx_glo(pdcms, pdata, presults, noise);
 
 %% Plot recovery results
 % which_params = find(spm_vec(rDCM.M.pC)~=0);
-% param_names = spm_fieldindices(DCM.Ep,find(spm_vec(rDCM.M.pC)~=0));
+% param_names = spm_fieldindices(rDCM.Ep,find(spm_vec(rDCM.M.pC)~=0));
 which_params = [309:314 315:320];
 param_names = {'B^{g_{ee}}_{1}', 'B^{g_{ee}}_{2}','B^{g_{ee}}_{3}',...
     'B^{g_{ee}}_{4}','B^{g_{ee}}_{5}','B^{g_{ee}}_{6}',...
