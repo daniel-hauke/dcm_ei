@@ -85,7 +85,7 @@ end
 if ~isstruct(DCM)
     load(DCM)
 end
-cd(fileparts(DCM.xY.Dfile))
+try cd(fileparts(DCM.xY.Dfile)); end;
 
 %% Generate parameter array
 fieldname = char(fieldnames(param));

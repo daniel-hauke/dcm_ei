@@ -78,12 +78,16 @@ param_names = {'B^{g_{ee}}', 'B^{g_{ii}}'};
 % MMN
 presults = 'C:\projects\dcm_ei\results\mmn\parameter_recovery_hc_grandmean\estimated';
 pplots = 'C:\projects\dcm_ei\results\mmn\parameter_recovery_hc_grandmean\estimated\plots';
+presults = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\estimated';
+pplots = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\plots';
 col = [44, 162, 95]/256;
 precov_plot_results(presults, pplots, which_params, param_names, col)
 
 % P50
 presults = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\estimated';
 pplots = 'C:\projects\dcm_ei\results\p50\parameter_recovery_hc_grandmean\estimated\plots';
+presults = 'C:\projects\dcm_ei\results\p50\parameter_recovery\estimated';
+pplots = 'C:\projects\dcm_ei\results\p50\parameter_recovery\plots';
 col = [253, 141, 60]/256;
 precov_plot_results(presults, pplots, which_params, param_names, col)
 

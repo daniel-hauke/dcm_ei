@@ -217,10 +217,14 @@ if opt.run_dcm
 %     DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
 %     DCM.M.pE.S = -1;
     
-    % NAPLS priors
+    % NAPLS priors (these were used for the dcm_ei paper
     DCM.M.pE.T = [log(16/2) log(128/2) log(2/16) log(2/28)];
     DCM.M.pE.S = -1;
     
+%     % NAPLS priors across patients and healthy controls
+%     DCM.M.pE.T = [log(32/2) log(128/2) log(2/16) log(2/28)];
+%     DCM.M.pE.S = -1;
+
     % Use bayesian parameter averages as starting values
     if opt.run_bpa
         load(opt.fbpa);

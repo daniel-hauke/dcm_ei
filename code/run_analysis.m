@@ -15,13 +15,21 @@ switch uid(1: end-1)
     % Daniel's PC
     case {'laptop-0jhjt7kf\danie', 'dell-cvmyz84\daniel','desktop-15ldi1r\pc'}
         presults = 'C:\projects\dcm_ei\results';
-%         presults = 'C:\projects\dcm_ei\results_g11_1000';
-%         presults = 'C:\projects\dcm_ei\results_g11_1600';
-%         presults = 'C:\projects\dcm_ei\results_g11_1200';
-%        presults = 'C:\projects\dcm_ei\results_g3_1000';
+        %         presults = 'C:\projects\dcm_ei\results_g11_1000';
+        %         presults = 'C:\projects\dcm_ei\results_g11_1600';
+        %         presults = 'C:\projects\dcm_ei\results_g11_1200';
+        %        presults = 'C:\projects\dcm_ei\results_g3_1000';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g3_1000';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g3_600';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g11_1000';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g11_600';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g6_1000';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g6_600';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g10_1000';
+        presults = 'C:\projects\dcm_ei\napls_bp_results_g10_600';
         pdata = 'C:\projects\dcm_ei\data';
-        pcode = 'C:\projects\dcm_ei\code';    
-
+        pcode = 'C:\projects\dcm_ei\code';
+        
     otherwise
         warning('Unknown User!')
         warning('Please specify your local paths at the top of the run_analysis.m script.')
@@ -30,6 +38,21 @@ end
 
 
 %% Fit models to data
+% opt = struct;
+% 
+% % P300
+% data_file_name = fullfile(pdata,'p300','p300_grandmean_all_f15.mat');
+% results_folder = fullfile(presults,'p300_napls');
+% fit_p300_dcm(data_file_name,results_folder,opt);
+% 
+% % MMN
+% data_file_name = fullfile(pdata,'mmn','mmn_grandmean_all.mat');
+% results_folder = fullfile(presults,'mmn');
+% fit_mmn_dcm(data_file_name,results_folder,opt);
+
+
+
+
 opt = struct;
 
 % P300
@@ -177,6 +200,53 @@ sim.dcm = fullfile(presults,'mmn','dcm','dcm_mmn_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
 
+%% Singe sublect simulations
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Fz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+%sim.vals = linspace(-2,2,9);       % value to be added or percentage change
+sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
+sim.psave = 'C:\projects\dcm_ei\results\mmn\simulations_single_subject_lowest_gii';    % Results folder
+sim.dcm = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\dcms\03-0001_dcm_mmn_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\mmn\parameter_recovery\data');
+sim_erp(sim);
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Fz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+%sim.vals = linspace(-2,2,9);       % value to be added or percentage change
+sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
+sim.psave = 'C:\projects\dcm_ei\results\mmn\simulations_single_subject_highest_gii';    % Results folder
+sim.dcm = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\dcms\02-0080_dcm_mmn_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\mmn\parameter_recovery\data');
+sim_erp(sim);
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Fz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+%sim.vals = linspace(-2,2,9);       % value to be added or percentage change
+sim.sim_title = {'Standard', 'Deviant'};           % Name of the conditions for plot
+sim.legend_loc = 'SouthEast';
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
+sim.psave = 'C:\projects\dcm_ei\results\mmn\simulations_single_subject_mean_gii';    % Results folder
+sim.dcm = 'C:\projects\dcm_ei\results\mmn\parameter_recovery\dcms\01-0008_dcm_mmn_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\mmn\parameter_recovery\data');
+sim_erp(sim);
+
+
+
+%%
+
 % P50 - single parameter simulation
 sim.param = {'B_g_ee'};        % Parameter fields to simulate from
 sim.flip_cols = 0;
@@ -214,8 +284,115 @@ sim.dcm = fullfile(presults,'p50','dcm','dcm_p50_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 
 
+%% Single subject P50
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_lowest_gii';    % Results folder
+sim.dcm = 'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0772_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
 
-% 
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_highest_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\1536_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_mean_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0114_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_1_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0234_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_2_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0520_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_3_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0772_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_4_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\0772_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
+sim.param = {'B_g_ii'};        % Parameter fields to simulate from
+sim.flip_cols = 1;
+sim.chan = {'Cz'};                           % Channel to plot the simulations
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.sim_title = {'S1', 'S2'};           % Name of the conditions for plot
+sim.flip_cols = 0;
+sim.flip_diff = 1;                      % for p50, we want to compute S1-S2 not S2-S1
+sim.legend_loc = 'SouthEast';
+sim.psave = 'C:\projects\dcm_ei\results\p50\simulations_single_subject_4_gii';    % Results folder
+sim.dcm =  'C:\projects\dcm_ei\results\p50\parameter_recovery\dcms\2288_dcm_p50_cmc_ei_v1.mat'; % DCM file
+cd('C:\projects\dcm_ei\results\p50\parameter_recovery\data');
+sim_erp(sim);
+
 % % Rest
 % sim.psave = fullfile(presults,'rest_v3','simulations');    % Results folder
 % sim.dcm = fullfile(presults,'rest_v3','dcm','dcm_rest_cmc_ei_v1.mat'); % DCM file

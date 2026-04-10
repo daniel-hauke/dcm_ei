@@ -223,6 +223,11 @@ if opt.run_dcm
     DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
     DCM.M.pE.S = -1;
     
+%     % Fix Tau and S to values selected by multistart across healthy
+%     % controls and patients
+%     DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(128/28)];
+%     DCM.M.pE.S = -1;
+    
     % Use bayesian parameter averages as starting values
     if opt.run_bpa
         load(opt.fbpa);
