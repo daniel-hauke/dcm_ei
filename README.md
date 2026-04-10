@@ -5,7 +5,7 @@ This code implements a new DCM model, which allows inferring E/I balance paramet
 Citing this code
 ---------------
 To cite this code please cite:
-tbd
+- Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance. Translational Psychiatry.
 
 This code uses the spm12 and the TAPAS toolboxes. Please, also cite these ressources:
 SPM12
@@ -50,7 +50,7 @@ Members of the project
 ---------------
 - Supervision: Rick Adams, Daniel J. Hauke
 - Sponsor: Rick Adams
-- Contributions: Julia Rodriguez-Sanchez, Hope Oloye
+- Contributors: Julia Rodriguez-Sanchez, Hope Oloye, Lioba Berndt, Dimitris Pinotsis, Karl Friston, Daniel Mathalon
 - Tester for Reproducible Research: Tbd
 
 
