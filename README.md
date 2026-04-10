@@ -2,7 +2,7 @@ A Canonical Microcircuit for Estimating E/I Balance
 ===============
 This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG data and also shows simulations highlighting the effects of changing these parameters.
 
-Citing this code
+Citing This Code
 ---------------
 To cite this code please cite:
 - Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance. *Translational Psychiatry*.
