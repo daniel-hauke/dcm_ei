@@ -7,7 +7,8 @@ Citing This Code
 To cite this code please cite:
 - Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). **A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance**. *Translational Psychiatry*. https://doi.org/10.1038/s41398-026-04312-y
 
-This code uses the spm12 and the TAPAS toolboxes. Please, also cite these resources:
+This code uses the SPM12 and the TAPAS toolboxes. Please, also cite these resources:
+
 SPM12
 - Friston et al. (1994). **Statistical parametric maps in functional imaging: A general linear approach**. *Human Brain Mapping*. https://doi.org/10.1002/hbm.460020402
 
