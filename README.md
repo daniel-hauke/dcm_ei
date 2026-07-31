@@ -64,8 +64,8 @@ This code was tested using MATLAB R2020b, spm12 (v7771) and TAPAS (v6.0.2).
 
 To run the pipeline, follow these steps:
 1. Open MATLAB and navigate to the code folder.
-2. Run `'setup_paths'`
-3. Run `'run_paper_analysis'`
+2. Run `'setup_paths.m'`
+3. Run `'run_paper_analysis.m'`
 
 
 Members of the project
