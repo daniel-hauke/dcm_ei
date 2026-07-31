@@ -6,15 +6,6 @@
 %   Inhibition (E/I) Balance. Translational Psychiatry. 
 %   https://doi.org/10.1038/s41398-026-04312-y
 % 
-% You can find an application of the model here, which also provides 
-% additional psychosis-informed priors for the passive (MMN) and active 
-% (P300) paradigms:
-% 
-%   Rodriguez-Sanchez*, Hauke*, et al. (2026). Biophysical Modeling of 
-%   Excitation/Inhibition Balance and Conversion to Psychosis in the 
-%   Clinical High Risk Syndrome. Biological Psychiatry. 
-%   https://doi.org/10.1016/j.biopsych.2026.04.007
-%
 % This code uses the SPM12 and the TAPAS toolboxes. Please, also cite these
 % resources: 
 %
@@ -38,7 +29,13 @@
 
 %% Preparation
 % Unfortunately, we cannot share the original data, but you can run the
-% model using a publicly available data set from Garrido et al.
+% model using a publicly available data set from Garrido et al. (2007)
+% 
+%   M.I. Garrido, J.M. Kilner, S.J. Kiebel, K.E. Stephan, K.J. Friston.
+%   Dynamic causal modelling of evoked potentials: a reproducibility study.
+%   NeuroImage. 2007 Jul 1;36(3):571-80.
+% 
+% To get this data:
 % - go to: https://www.fil.ion.ucl.ac.uk/spm/data/eeg_mmn/
 % - download preproccessed MMN data: maeMdfspm8_subject1.zip and unzip 
 % - add path to data below
@@ -64,19 +61,42 @@ end
 
 
 %% Run MMN example
-% This runs the model inversion for the passive oddball (MMN) paradigm
+% This runs the model inversion for the passive oddball (MMN) paradigm.
+
 DCM = fit_mmn_dcm(data_file,result_dir,prior_file);
 
-% To run the model for the paired-click paradigm run fit_p50_dcm.m 
-% and for the active oddball (P300) paradigm run fit_p300_dcm.m
+% To run the model for the paired-click (P50) paradigm and the active 
+% oddball (P300) paradigm run:
+% - fit_p50_dcm.m 
+% - fit_p300_dcm.m
+%
+% Don't forget to update the condition order in DCM.options.trials
 % 
 % The prior values from healthy controls reported in the paper can be found
 % inside the code/priors folder. For analysis in healthy controls or other
 % psychiatric conditions we recommend using these priors. If you are
 % interested in priors that were enriched for psychosis risk you can
 % download priors for the passive oddball (MMN) and active oddball (P300)
-% paradig
+% paradigms from this paper here:
+% 
+%   Rodriguez-Sanchez*, Hauke*, et al. (2026). Biophysical Modeling of 
+%   Excitation/Inhibition Balance and Conversion to Psychosis in the 
+%   Clinical High Risk Syndrome. Biological Psychiatry. 
+%   https://doi.org/10.1016/j.biopsych.2026.04.007
 
 
 %% Useful plots
+% Plot actual vs predicted response
+condition_labels = {'Std','Dev'};
+plot_actual_vs_predicted_erp(DCM);
 
+% Plot posterior fit of input to network
+t = linspace(DCM.options.Tdcm(1)/1000,DCM.options.Tdcm(2)/1000,1000);
+u = spm_erp_u(t,DCM.Ep,DCM.M);
+figure; plot(t*1000,u); xlabel('time[ms]'); ylabel('Input strength'); title('Posterior Input Fit');
+
+% Plot posterior parameter estimates
+param = {'B_g_ii','B_g_ee'}; 
+for p = 1:numel(param)
+    plot_dcm_parameters(DCM, param{p});
+end

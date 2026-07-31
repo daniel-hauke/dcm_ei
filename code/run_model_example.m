@@ -69,6 +69,9 @@ DCM = fit_mmn_dcm(data_file,result_dir,prior_file);
 % oddball (P300) paradigm run:
 % - fit_p50_dcm.m 
 % - fit_p300_dcm.m
+%
+% Don't forget to update the condition order in DCM.options.trials in
+% accordance with your data.
 % 
 % The prior values from healthy controls reported in the paper can be found
 % inside the code/priors folder. For analysis in healthy controls or other
