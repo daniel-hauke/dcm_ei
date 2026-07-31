@@ -5,9 +5,10 @@ This code implements a new DCM model, which allows inferring E/I balance paramet
 Citing This Code
 ---------------
 To cite this code please cite:
-- Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance. *Translational Psychiatry*.
+- Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance. *Translational Psychiatry*. https://doi.org/10.1038/s41398-026-04312-y
 
-
+You can find an application of the model here, which also provides additional psychosis-informed priors for the passive (MMN) and active (P300) paradigms:
+- Rodriguez-Sanchez*, Hauke*, et al. (2026). Biophysical Modeling of Excitation/Inhibition Balance and Conversion to Psychosis in the Clinical High Risk Syndrome. *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2026.04.007
 
 This code uses the spm12 and the TAPAS toolboxes. Please, also cite these ressources:
 SPM12
