@@ -40,7 +40,7 @@ Running the E/I model
 ---------------
 This code was tested using MATLAB R2020b, spm12 (v7771) and TAPAS (v6.0.2).
 
-Unfortunately, we cannot share the original data, but you can run the model on a publicly available example passive oddball (MMN) dataset by Garrido et al. (2007)
+Unfortunately, we cannot share the original data, but you can run the model on a publicly available passive oddball (MMN) dataset by Garrido et al. (2007)
 - Garrido, Kilner, Kiebel, Stephan, & Friston (2007). **Dynamic causal modelling of evoked potentials: a reproducibility study.** *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2007.03.014
  
 To get this data:
