@@ -1,6 +1,6 @@
 A Canonical Microcircuit for Estimating E/I Balance
 ===============
-This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG and OPM data and also shows simulations highlighting the effects of changing these parameters.
+This code implements a new DCM model, which allows inferring E/I balance parameters from M/EEG and OPM data and also includes simulations highlighting the effects of changing these parameters.
 
 Citing This Code
 ---------------
