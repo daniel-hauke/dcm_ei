@@ -5,10 +5,7 @@ This code implements a new DCM model, which allows inferring E/I balance paramet
 Citing This Code
 ---------------
 To cite this code please cite:
-- Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance. *Translational Psychiatry*. https://doi.org/10.1038/s41398-026-04312-y
-
-You can find an application of the model here, which also provides additional psychosis-informed priors for the passive (MMN) and active (P300) paradigms:
-- Rodriguez-Sanchez*, Hauke*, et al. (2026). Biophysical Modeling of Excitation/Inhibition Balance and Conversion to Psychosis in the Clinical High Risk Syndrome. *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2026.04.007
+- Hauke, Rodriguez-Sanchez, Oloye, Berndt, Pinotsis, Friston, Mathalon, & Adams (2026). **A Canonical Microcircuit for Estimating Excitation/Inhibition (E/I) Balance**. *Translational Psychiatry*. https://doi.org/10.1038/s41398-026-04312-y
 
 This code uses the spm12 and the TAPAS toolboxes. Please, also cite these resources:
 SPM12
@@ -38,15 +35,37 @@ Or if you are unfamiliar with the github command window, you can:
 2. You will then need to manually download SPM12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/spm12/ and save it in the code/toolboxes folder
 3. Now download TAPAS from here: https://translationalneuromodeling.github.io/tapas/ and save it in the code/toolboxes folder
 
+Running the E/I model
+---------------
+This code was tested using MATLAB R2020b, spm12 (v7771) and TAPAS (v6.0.2).
 
-Running The Code
+Unfortunately, we cannot share the original data, but you can run the model on an example passive oddball (MMN) dataset umade publicly available by Garrido et al. (2007)
+- Garrido, Kilner, Kiebel, Stephan, & Friston (2007). **Dynamic causal modelling of evoked potentials: a reproducibility study.** *NeuroImage*. https://doi.org/10.1016/j.neuroimage.2007.03.014
+ 
+To get this data:
+- go to: https://www.fil.ion.ucl.ac.uk/spm/data/eeg_mmn/
+- download preproccessed MMN data: maeMdfspm8_subject1.zip and unzip 
+
+To run the pipeline, follow these steps:
+1. Open MATLAB and navigate to the code folder.
+2. Run `'setup_paths'`
+3. Update the paths to the maeMdfspm8_subject1.mat data file, the results folder and the prior file at the top of the 'run_model_example'`script
+4. Run `'run_model_example'`
+
+There are further instructions in the run_model_example script to run the model on the paired-click and active oddball (P300) paradigms.
+
+The prior files from the grandmean healthy controls inversion reported in the paper can be found inside the code/priors folder. For analysis in healthy controls or  psychiatric conditions (other than schizophrenia) we recommend using these priors. If you are interested in priors that were enriched for psychosis risk you can download priors for the passive oddball (MMN) and active oddball (P300) paradigms from this paper applying the model to data from individuals at clinical high risk for psychosis here:
+- Rodriguez-Sanchez*, Hauke*, et al. (2026). **Biophysical Modeling of Excitation/Inhibition Balance and Conversion to Psychosis in the Clinical High Risk Syndrome.** *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2026.04.007
+
+
+Replicating the paper analysis
 ---------------
 This code was tested using MATLAB R2020b, spm12 (v7771) and TAPAS (v6.0.2).
 
 To run the pipeline, follow these steps:
 1. Open MATLAB and navigate to the code folder.
 2. Run `'setup_paths'`
-3. Run `'run_analysis'`
+3. Run `'run_paper_analysis'`
 
 
 Members of the project
@@ -54,7 +73,6 @@ Members of the project
 - Supervision: Rick Adams, Daniel J. Hauke
 - Sponsor: Rick Adams
 - Contributors: Julia Rodriguez-Sanchez, Hope Oloye, Lioba Berndt, Dimitris Pinotsis, Karl Friston, Daniel Mathalon
-- Tester for Reproducible Research: Tbd
 
 
 
