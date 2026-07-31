@@ -10,7 +10,7 @@ To cite this code please cite:
 You can find an application of the model here, which also provides additional psychosis-informed priors for the passive (MMN) and active (P300) paradigms:
 - Rodriguez-Sanchez*, Hauke*, et al. (2026). Biophysical Modeling of Excitation/Inhibition Balance and Conversion to Psychosis in the Clinical High Risk Syndrome. *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2026.04.007
 
-This code uses the spm12 and the TAPAS toolboxes. Please, also cite these ressources:
+This code uses the spm12 and the TAPAS toolboxes. Please, also cite these resources:
 SPM12
 - Friston et al. (1994). **Statistical parametric maps in functional imaging: A general linear approach**. *Human Brain Mapping*. https://doi.org/10.1002/hbm.460020402
 
