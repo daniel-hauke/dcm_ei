@@ -55,7 +55,7 @@ To run the pipeline, follow these steps:
 
 There are further instructions in the run_model_example script to run the model on the paired-click and active oddball (P300) paradigms.
 
-The prior files from the grandmean healthy controls inversion reported in the paper can be found inside the code/priors folder. For analysis in healthy controls or  psychiatric conditions (other than schizophrenia) we recommend using these priors. If you are interested in priors that were enriched for psychosis risk you can download priors for the passive oddball (MMN) and active oddball (P300) paradigms from this paper applying the model to data from individuals at clinical high risk for psychosis here:
+The prior files from the grandmean healthy controls inversion reported in the paper can be found inside the code/priors folder. For analyses in healthy controls or  psychiatric conditions (other than schizophrenia) we recommend using these priors. If you are interested in priors that were enriched for psychosis risk you can download priors for the passive oddball (MMN) and active oddball (P300) paradigms from this paper applying the model to data from individuals at clinical high risk for psychosis here:
 - Rodriguez-Sanchez*, Hauke*, et al. (2026). **Biophysical Modeling of Excitation/Inhibition Balance and Conversion to Psychosis in the Clinical High Risk Syndrome.** *Biological Psychiatry*. https://doi.org/10.1016/j.biopsych.2026.04.007
 
 
