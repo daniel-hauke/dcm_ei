@@ -19,14 +19,14 @@ switch uid(1: end-1)
         %         presults = 'C:\projects\dcm_ei\results_g11_1600';
         %         presults = 'C:\projects\dcm_ei\results_g11_1200';
         %        presults = 'C:\projects\dcm_ei\results_g3_1000';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g3_1000';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g3_600';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g11_1000';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g11_600';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g6_1000';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g6_600';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g10_1000';
-        presults = 'C:\projects\dcm_ei\napls_bp_results_g10_600';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g3_1000';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g3_600';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g11_1000';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g11_600';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g6_1000';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g6_600';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g10_1000';
+%         presults = 'C:\projects\dcm_ei\napls_bp_results_g10_600';
         pdata = 'C:\projects\dcm_ei\data';
         pcode = 'C:\projects\dcm_ei\code';
         
@@ -159,6 +159,20 @@ sim.legend_loc = 'NorthEast';
 sim.flip_cols = 0;
 sim.flip_diff = 0; 
 sim.psave = fullfile(presults,'p300_napls','simulations','G');    % Results folder
+sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
+sim_erp(sim);
+
+
+
+% P300 - single parameter simulation
+sim.param = {'B'};        % Parameter fields to simulate from
+sim.chan = {'Pz'};                           % Channel to plot the simulations
+sim.sim_title = {'Standard', 'Target'};           % Name of the conditions for plot
+sim.vals = linspace(-0.5,0.5,9);       % value to be added or percentage change
+sim.legend_loc = 'NorthEast';
+sim.flip_cols = 0;
+sim.flip_diff = 0; 
+sim.psave = fullfile(presults,'p300_napls','simulations','B');    % Results folder
 sim.dcm = fullfile(presults,'p300_napls','dcm','dcm_p300_cmc_ei_v1.mat'); % DCM file
 sim_erp(sim);
 

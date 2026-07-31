@@ -27,5 +27,5 @@ do_plot = 1;
 
 
 % Plot
-model_names = {'EI', 'CMC'};
+model_names = {'E/I', 'CMC'};
 fh = plot_bms(pxp, exp_r, model_names);

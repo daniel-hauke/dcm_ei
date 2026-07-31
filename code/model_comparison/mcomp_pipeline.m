@@ -87,7 +87,7 @@ mcomp_sim_data(pdcms, pdata, presults, noise);
 
 
 %% Plot Compute confusion matrix
-model_names = {'EI', 'CMC'};
+model_names = {'E/I', 'CMC'};
 
 % P50
 pdcms = 'C:\projects\dcm_ei\results\p50\model_comparison\estimated';
