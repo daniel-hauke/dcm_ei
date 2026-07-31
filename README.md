@@ -48,9 +48,9 @@ To get this data:
 
 To run the pipeline, follow these steps:
 1. Open MATLAB and navigate to the code folder.
-2. Run `'setup_paths'`
-3. Update the paths to the maeMdfspm8_subject1.mat data file, the results folder and the prior file at the top of the 'run_model_example'`script
-4. Run `'run_model_example'`
+2. Run `'setup_paths.m'`
+3. Update the paths to the maeMdfspm8_subject1.mat data file, the results folder and the prior file at the top of the `'run_model_example.m'`script
+4. Run `'run_model_example.m'`
 
 There are further instructions in the run_model_example script to run the model on the paired-click and active oddball (P300) paradigms.
 
