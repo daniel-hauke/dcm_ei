@@ -1,7 +1,12 @@
-function DCM = fit_p50_dcm(data_file,result_dir,prior_file)
-%--------------------------------------------------------------------------
-% This function runs the E/I model using the grandmean priors.
-%--------------------------------------------------------------------------
+function fit_mmn_dcm(data_file,result_dir,prior_file)
+% This function runs the E/I mo
+
+
+
+
+
+
+
 
 
 %% Run Headmodel
@@ -46,24 +51,24 @@ DCM.options.analysis = 'ERP';       % analyze evoked responses
 DCM.options.spatial  = 'ECD';       % spatial model 'ECD' or 'IMG'
 DCM.options.trials   = [1 2];       % index of ERPs within ERP/ERF file
 DCM.options.Tdcm(1)  = -100;        % start of peri-stimulus time to be modelled
-DCM.options.Tdcm(2)  = 350;         % end of peri-stimulus time to be modelled
+DCM.options.Tdcm(2)  = 400;         % end of peri-stimulus time to be modelled
 DCM.options.Nmodes   = 8;           % nr of modes for data selection
 DCM.options.h        = 1;           % nr of DCT components
-DCM.options.D        = 2;           % downsampling (downsample by factor of 2.5 to get to 100Hz sampling rate)
+DCM.options.D        = 1;           % downsampling 
 DCM.options.han      = 1;           % Hanning window
-DCM.options.onset    = 50;          % onset mean of input
-DCM.options.dur      = 30;          % sd of onset
-DCM.M.nograph        = 1;           % Turn of graphics to run on cluster
-DCM.M.Nmax           = 64;          % default: 64
+DCM.options.onset    = 68;          % onset mean of input
+DCM.options.dur      = 16;          % sd of onset
+DCM.M.Nmax           = 64;          % default: 64, just to have a quick check
+DCM.M.nograph        = 0;           % no figure in spm_dcm_erp
 
 % Sources
-DCM.Sname = {'lSTG', 'rSTG', 'lIns', 'rIns', 'lMFG', 'rMFG'};
-DCM.Lpos  = [-53 -20 13;
-              49 -10 10;
-             -36  23  3;
-              36  23  3;
-              -1 -20 67;
-              1 -20 67]';
+DCM.Sname = {'lA1', 'rA1', 'lSTG', 'rSTG', 'lIFG', 'rIFG'}; 
+DCM.Lpos  = [-42 -22 7;
+              46 -14 8;
+             -61 -32 8;
+              59 -25 8;
+             -46 20 8;
+              46 20 8]';
 
 % Forward connections
 DCM.A{1} = zeros(numel(DCM.Sname));
@@ -105,13 +110,14 @@ DCM.B{1}(4,6) = 1;
 DCM.C = [1; 1; 0; 0; 0; 0];
 
 % Between trial effects
-DCM.xU.name{1} = {'Main effect of condition: S1 > S2'};
-DCM.xU.X(:,1)  = [1; -1];
+DCM.xU.name{1} = {'Main effect of condition: Dev > Std'};
+DCM.xU.X(:,1)  = [-1; 1];
 
 DCM = get_priors_ei_cmc(DCM);
 
 % Fix input
 DCM.M.pC.R = [1/1024 1/1024];
+
 
 % Estimating global parameter
 DCM.M.pC.B_g_ee = 1/8;  % Estimate global B-g_ee parameter
@@ -133,6 +139,7 @@ DCM.M.pC.B_g_se = 0;
 % DCM.M.pC.B_g_ee = [1/8 1/8 1/8 1/8 1/8 1/8]';
 % DCM.M.pC.B_g_ii = [1/8 1/8 1/8 1/8 1/8 1/8]';
 
+
 % Interpretation of G's: [g_ee g_ii g_ei g_ie g_se]
 DCM.M.pC.G(1) = 1/32;  % Estimate global condition-independent g_ee parameter
 DCM.M.pC.G(1) = 1/32;  % Estimate global condition-independent g_ii parameter
@@ -145,10 +152,9 @@ DCM.M.pC.G(5) = 0;
 % % Fixing the B's
 % DCM.M.pC.B{1} = zeros(size(DCM.M.pE.B{1}));
 
-
-%% Set Tau and S to values selected by multistart
-DCM.M.pE.T = [log(16/2) log(16/2) log(2/16) log(16/28)];
-DCM.M.pE.S = -2;
+% Set Tau and S to values selected by multistart
+DCM.M.pE.T = [log(16/2) log(32/2) log(2/16) log(2/28)];
+DCM.M.pE.S = -1;
 
 
 %% Loading grandmean priors
