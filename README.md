@@ -36,7 +36,7 @@ Or if you are unfamiliar with the github command window, you can:
 2. You will then need to manually download SPM12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/spm12/ and save it in the code/toolboxes folder
 3. Now download TAPAS from here: https://translationalneuromodeling.github.io/tapas/ and save it in the code/toolboxes folder
 
-Running the E/I model
+Using the E/I model
 ---------------
 This code was tested using MATLAB R2020b, spm12 (v7771) and TAPAS (v6.0.2).
 
